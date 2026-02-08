@@ -4,7 +4,35 @@ SignalCast is an intelligent distribution layer that bridges the gap between AI 
 
 ---
 
-### Emission and Reward Logic
+## Worked Example: The Interest Pipeline in Action
+
+### Scenario: Acme CRM vs. Salesforce
+
+**Advertiser:** Acme CRM (mid-market Salesforce competitor)
+**Target:** Salesforce customers experiencing pain points
+**Asset:** SN93-generated case study video: "How TechCorp Cut CRM Costs 40% by Switching from Salesforce"
+
+**Stage 1 — Task Ingest:** Validator broadcasts brief with Target Account List (Salesforce customers) and conversion targets (demo signups, whitepaper downloads).
+
+**Stage 2 — Miner Reconnaissance:** Miner 0x7A3F identifies NovaTech Inc. as a Salesforce customer via BuiltWith. Detects a G2 review mentioning pricing frustration. Locates VP of RevOps discussing CRM issues on X.com.
+
+**Stage 3 — Precision Placement:** Miner posts in X.com thread with tracked link to case study.
+
+**Stage 4 — Conversion:** NovaTech VP clicks, watches video (4:32), downloads whitepaper with work email, submits demo request 48 hours later.
+
+**Stage 5 — Validation:** Validator confirms:
+- Reverse IP → NovaTech Inc.
+- NovaTech on Target Account List → **10x Conquest Multiplier**
+- Demo signup → **10x Conversion Weight**
+- Human behavior verified via Honey-Link
+
+**Final Score:** 1.0 × 10 × 10 × 1.05 = **105 points** (vs 0.1 for residential click)
+
+**Stage 6 — Reward:** Miner receives ~6 TAO. Advertiser pays ~2 TAO on conversion.
+
+---
+
+## Emission and Reward Logic
 
 The SignalCast emission schedule follows a **Strategic Conquest** model that prioritizes the acquisition of a competitor's market share over raw reach. Emissions are weighted based on the **Authority** of the customer audience and the **Depth** of their conversion.
 
@@ -15,7 +43,7 @@ The SignalCast emission schedule follows a **Strategic Conquest** model that pri
 
 ---
 
-### Incentive Alignment for Miners and Validators
+## Incentive Alignment for Miners and Validators
 
 The mechanism ensures that all participants profit only when the advertiser—and by extension, the Bitcast ecosystem—sees a measurable ROI from a competitor's market.
 
@@ -25,7 +53,7 @@ The mechanism ensures that all participants profit only when the advertiser—an
 
 ---
 
-### Mechanisms to Discourage Low-Quality or Adversarial Behavior
+## Mechanisms to Discourage Low-Quality or Adversarial Behavior
 
 SignalCast maintains a "Zero-Trust" environment through **Economic Deterrence** and **Firmographic Filtering**.
 
@@ -35,16 +63,68 @@ SignalCast maintains a "Zero-Trust" environment through **Economic Deterrence** 
 
 ---
 
-### How this design qualifies as "Proof of Intelligence"
+## Proof of Intelligence Framework
 
 SignalCast qualifies as a **Proof of Intelligence** subnet by requiring complex, non-algorithmic market logic that cannot be solved by brute-force hardware.
 
-* **Proof of Intelligence (Customer Mapping):** Miners must use LLMs and competitive intelligence to "map" a competitor’s customer base—often identifying clients through technographic footprints or public case studies. Matching an SN93 asset to a specific customer's pain point requires sophisticated semantic reasoning.
-* **Proof of Effort (Operational Grit):** The continuous scouting of fragmented "Dark Social" networks, maintaining niche distribution channels, and performing real-time technographic detection represents a verifiable expenditure of time and strategic resource.
+### Why This Qualifies as Proof of Intelligence
+
+| Requirement | SignalCast Implementation |
+|-------------|---------------------------|
+| **Non-trivial task** | Competitive intelligence requires research, reasoning, and judgment |
+| **Verifiable output** | Reasoning traces can be checked against evidence |
+| **Resistance to gaming** | Fabricated reasoning fails consistency checks; volume without quality is penalized |
+| **Economic alignment** | Rewards scale with reasoning quality, not just placement volume |
+| **Skill differentiation** | Miners with better intelligence capabilities consistently outperform |
+
+### Strategic Reasoning Submission
+
+Miners must submit a **reasoning trace** alongside each placement proof:
+
+```json
+{
+  "placement_proof": "https://x.com/thread/...",
+  "telemetry_bundle": "hash:0x7a3f...",
+  "reasoning": {
+    "target_identification": "NovaTech identified as Salesforce customer via BuiltWith + G2 review",
+    "pain_point_match": "Asset addresses cost reduction; G2 review mentions pricing frustration",
+    "timing_rationale": "Q1 renewal cycle; competitor outage reported 48h ago",
+    "channel_selection": "VP RevOps active in CRM discussion thread"
+  }
+}
+```
+
+Validators score reasoning quality across four dimensions (target identification, pain point match, timing rationale, channel selection), with strong reasoning earning up to 20% bonus multiplier.
+
+### The Intelligence Hierarchy
+
+SignalCast rewards intelligence at multiple levels:
+
+1. **Level 1 — Channel Access:** Developing presence in gated professional communities
+2. **Level 2 — Strategic Matching:** Connecting assets to verified targets with coherent reasoning
+3. **Level 3 — Signal Detection:** Identifying technographic shifts and pain points from noisy data
+4. **Level 4 — Market Prediction:** Anticipating decision windows before signals appear (highest reward)
 
 ---
 
-### High-Level Algorithm: The Interest Pipeline
+## Content Source Flexibility
+
+While Subnet 93 (Bitcast) is SignalCast's primary integration partner, the architecture is **content-source agnostic**.
+
+### Supported Asset Types
+
+| Source | Asset Type | Integration Status |
+|--------|------------|-------------------|
+| **SN93 (Bitcast)** | AI-generated video | Primary (native) |
+| **Advertiser-provided** | Whitepapers, case studies, landing pages | Supported |
+| **Other Bittensor subnets** | SN17 (3D), SN59 (audio), future content subnets | Planned |
+| **External CDNs** | Any URL-addressable content | Supported |
+
+SignalCast is **SN93-compatible, not SN93-dependent**. The subnet's core innovation—decentralized precision B2B distribution—is valuable for any content.
+
+---
+
+## High-Level Algorithm: The Interest Pipeline
 
 SignalCast miners bridge the gap between social awareness and industrial intent. Potential customers discover "Lead Magnets" (Whitepapers, Demos, Contact Forms) through the following loop:
 
@@ -56,3 +136,5 @@ SignalCast miners bridge the gap between social awareness and industrial intent.
    * **Direct Inquiry:** Submitting Contact Forms for procurement.
 4. **Validation (The Audit):** Validators cross-reference these off-chain events with the SN93 data loop and Reverse IP lookups to verify the lead's **Customer Status** and issue Tier 1 "Conquest" rewards.
 5. **Scoring & Allocation:** Validators calculate the final score based on the **Conquest Multiplier** and **Conversion Depth**. Yuma Consensus processes these weights to allocate block rewards.
+
+---
