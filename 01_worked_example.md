@@ -140,5 +140,3 @@ At epoch close (360 blocks):
 **This is SignalCast: turning decentralized distribution into verified competitive conquest.**
 
 ---
-
-Can you see that? Say "next" and I'll send file 2.
