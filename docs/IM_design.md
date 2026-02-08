@@ -86,13 +86,13 @@ Miners must submit a **reasoning trace** alongside each placement proof:
 
 ```json
 {
-  "placement_proof": "https://x.com/thread/...",
+  "placement_proof": "https://news.ycombinator.com/item?id=...",
   "telemetry_bundle": "hash:0x7a3f...",
   "reasoning": {
-    "target_identification": "NovaTech identified as Salesforce customer via BuiltWith + G2 review",
-    "pain_point_match": "Asset addresses cost reduction; G2 review mentions pricing frustration",
-    "timing_rationale": "Q1 renewal cycle; competitor outage reported 48h ago",
-    "channel_selection": "VP RevOps active in CRM discussion thread"
+    "target_identification": "VoiceFlow identified as Replicate customer via GitHub repo imports",
+    "pain_point_match": "Asset addresses cold start latency; CTO tweet mentions this exact issue",
+    "timing_rationale": "Active HN thread on inference costs; high visibility window",
+    "channel_selection": "Technical audience, high-authority context, CTO known to be active"
   }
 }
 ```
@@ -135,7 +135,7 @@ SignalCast miners bridge the gap between social awareness and industrial intent.
 2. **Engagement (Social Interest):** High-authority targets from the competitor's customer base interact with the asset (Likes, Follows, Reposts). Validators verify these via social APIs, triggering Tier 2/3 rewards.
 3. **Conversion (Industrial Intent):** Customers follow the SignalCast-tracked link to the advertiser's landing page and perform high-value actions:
    * **Resource Ingest:** Downloading technical Whitepapers or Case Studies.
-   * **Product Evaluation:** Signing up for live Demos.
+   * **Product Evaluation:** Signing up for live Demos or API access.
    * **Direct Inquiry:** Submitting Contact Forms for procurement.
 4. **Validation (The Audit):** Validators cross-reference these off-chain events with the SN93 data loop and Reverse IP lookups to verify the lead's **Customer Status** and issue Tier 1 "Conquest" rewards.
 5. **Scoring & Allocation:** Validators calculate the final score based on the **Conquest Multiplier** and **Conversion Depth**. Yuma Consensus processes these weights to allocate block rewards.
