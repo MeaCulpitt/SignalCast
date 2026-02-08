@@ -1,18 +1,18 @@
 # SignalCast: Validator Architecture & Audit Logic
 
-The SignalCast validator acts as the **Strategic Arbiter** of the subnet. Its primary responsibility is not just to verify data, but to audit the **Intent and Authority** of the traffic driven by miners. By interfacing with Subnet 93 (Bitcast) and external Firmographic registries, the validator ensures that every TAO of emission is backed by genuine industrial influence.
+The SignalCast validator acts as the **Strategic Arbiter** of the subnet. Its primary responsibility is to audit the **Intent and Authority** of the traffic driven by miners. By interfacing with Subnet 93 (Bitcast) and external Firmographic registries, the validator ensures that every TAO of emission is backed by verified engagement from a competitor's customer base.
 
 ---
 
 ### Scoring and Evaluation Methodology
 
-The evaluation of a miner is a multi-dimensional process that prioritizes **Lead Quality** over **Traffic Volume**. Scoring is calculated using a weighted composite of three primary vectors:
+The evaluation of a miner is a multi-dimensional process that prioritizes **Strategic Conquest** over raw volume. Internal traffic from competitor corporate domains is filtered out to ensure miners focus exclusively on the **Competitor's Customer Base**.
 
 * **Firmographic Accuracy ($W_a$):**
     The validator performs a **Reverse IP Lookup** and **ASN Path Analysis** on every incoming click. Clicks are categorized into tiers:
-    * **Tier 1 (Target Account List):** Verified employees of the competitor or their customers ($5\times$ weight).
-    * **Tier 2 (Industry Relevant):** Verified employees within the same B2B vertical but not on the TAL ($2\times$ weight).
-    * **Tier 3 (Generic):** Residential or non-corporate traffic ($0.1\times$ weight).
+    * **Tier 1 (Verified Competitor Customers):** Verified employees of companies currently using a competitor's technology stack ($10\times$ weight).
+    * **Tier 2 (High-Fit Industry Targets):** Verified employees within the same B2B vertical with high propensity to switch ($3\times$ weight).
+    * **Tier 3 (Generic/Competitor Internal):** Residential traffic or internal competitor staff ($0.1\times$ weight).
     * **Tier 4 (Data Center/VPN):** Disqualified ($0$ weight).
 * **Behavioral Integrity ($W_i$):**
     Utilizing the **Honey-Link Protocol**, validators analyze the telemetry for "Human Signatures." Miners are penalized if the traffic shows:
@@ -20,20 +20,24 @@ The evaluation of a miner is a multi-dimensional process that prioritizes **Lead
     * Instantaneous "clicks" following a placement (bot-like reaction time).
     * High variance in IP origin but identical User-Agent strings.
 * **Conversion Success ($W_c$):**
-    The validator pings the **Subnet 93 Data Loop** to verify downstream actions. A miner who drives a single "Demo Request" or "Whitepaper Download" from a target domain receives a significantly higher score than a miner driving 1,000 "Top-of-Funnel" impressions.
+    Success is measured by the **Depth of Interest** tracked via the **Subnet 93 Data Loop** and social APIs:
+    * **Direct Leads (10x):** Whitepaper downloads, demo requests, or contact form submissions.
+    * **Social Growth (5x):** New "Follows" on the advertiser's X.com or professional profiles from verified customer domains.
+    * **Engagement Velocity (3x):** High-authority Likes, Reposts, and Bookmarks on the distributed creative asset.
+    * **Attention Retention (1x):** Sustained "Watch-Time" proving audience relevance.
 
 ---
 
 ### Evaluation Cadence
 
-To ensure the network remains responsive to the fast-moving "Market Ruptures" of competitive industries, the evaluation follows a dual-track schedule:
+To ensure the network remains responsive to fast-moving "Market Ruptures," the evaluation follows a dual-track schedule:
 
 1. **Real-Time Telemetry Processing:**
-    As miners route traffic through their redirectors, validators perform asynchronous firmographic checks. This allows for the **Dynamic Kill-Switch** to be triggered immediately if a miner is detected pushing fraudulent or bot-heavy traffic.
+    As miners route traffic through their redirectors, validators perform asynchronous firmographic checks. This allows for a **Dynamic Kill-Switch** to be triggered immediately if a miner is detected pushing fraudulent or irrelevant traffic.
 2. **Epoch-Based Weight Commitment:**
     Every **360 blocks (approximately 1 hour)**, the validator aggregates the performance data from all active briefs. The final scores are normalized across the miner set and committed to the Subtensor as weight vectors.
 3. **Bounty Settlement:**
-    Technographic Bounties are evaluated on a **First-to-Verify** basis. Once a miner submits a "Proof of Signal" (e.g., a competitor tech-stack change), validators have a 10-minute window to reach consensus on the signal's validity before the bounty multiplier is activated.
+    Technographic Bounties (e.g., detecting a competitor's customer removing a script) are evaluated on a **First-to-Verify** basis. Once a miner submits a "Proof of Signal," validators have a 10-minute window to reach consensus.
 
 ---
 
@@ -42,8 +46,8 @@ To ensure the network remains responsive to the fast-moving "Market Ruptures" of
 SignalCast ensures validators are economically driven to be honest, rigorous, and efficient:
 
 * **V-Trust & Consensus:**
-    Validators earn dividends based on their **V-Trust score**. If a validator consistently scores a miner differently than the stake-weighted median of the network (e.g., by being "too lenient" on a friendly miner), their V-Trust decays, reducing their own TAO rewards.
+    Validators earn dividends based on their **V-Trust score**. Consistently scoring miners outside the stake-weighted median results in V-Trust decay and reduced rewards.
 * **Attribution Accuracy Rebates:**
-    A portion of the advertiser's "Distribution Fee" is held in an escrow pool. Validators who demonstrate the highest correlation between their internal scoring and the **actual sales data** reported by the advertiser receive a "Performance Dividend."
+    A portion of the advertiser's "Distribution Fee" is held in escrow. Validators demonstrating the highest correlation between internal scores and **actual sales data** reported by the advertiser receive a "Performance Dividend."
 * **Fraud Detection Bounties:**
-    Validators that are the first to identify and provide a "Proof of Adversarial Intent" against a malicious miner (resulting in a slash) are rewarded with a portion of the burned stake.
+    Validators that are the first to identify and provide a "Proof of Adversarial Intent" against a malicious miner are rewarded with a portion of the slashed stake.
