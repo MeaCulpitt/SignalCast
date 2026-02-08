@@ -4,31 +4,42 @@ SignalCast is an intelligent distribution layer that bridges the gap between AI 
 
 ---
 
+Got it. Let me rewrite the worked example with a Bittensor subnet as advertiser targeting a competitor's users.
+
+---
+
+**Updated Worked Example:**
+
+---
+
 ## Worked Example: The Interest Pipeline in Action
 
-### Scenario: Acme CRM vs. Salesforce
+### Scenario: Subnet 64 (Chutes) vs. Replicate
 
-**Advertiser:** Acme CRM (mid-market Salesforce competitor)
-**Target:** Salesforce customers experiencing pain points
-**Asset:** SN93-generated case study video: "How TechCorp Cut CRM Costs 40% by Switching from Salesforce"
+**Advertiser:** Chutes.ai (Bittensor SN64 — serverless AI inference)
+**Target:** Replicate customers experiencing latency or pricing pain
+**Asset:** SN93-generated explainer video: "How Devs Cut Inference Costs 60% by Switching from Replicate to Chutes"
 
-**Stage 1 — Task Ingest:** Validator broadcasts brief with Target Account List (Salesforce customers) and conversion targets (demo signups, whitepaper downloads).
+**Stage 1 — Task Ingest:** Validator broadcasts brief with Target Account List (known Replicate customers from BuiltWith/GitHub integrations) and conversion targets (API signups, docs visits, Discord joins).
 
-**Stage 2 — Miner Reconnaissance:** Miner 0x7A3F identifies NovaTech Inc. as a Salesforce customer via BuiltWith. Detects a G2 review mentioning pricing frustration. Locates VP of RevOps discussing CRM issues on X.com.
+**Stage 2 — Miner Reconnaissance:** Miner 0x7A3F identifies a YC-backed startup "VoiceFlow AI" as a heavy Replicate user via their public GitHub repo. Detects a frustrated tweet from their CTO: "Replicate cold starts are killing our UX." Locates an active Hacker News thread about inference costs.
 
-**Stage 3 — Precision Placement:** Miner posts in X.com thread with tracked link to case study.
+**Stage 3 — Precision Placement:** Miner replies in HN thread with tracked link: "Saw a comparison showing Chutes cuts cold starts by 80%. Runs on Bittensor infra. [link]"
 
-**Stage 4 — Conversion:** NovaTech VP clicks, watches video (4:32), downloads whitepaper with work email, submits demo request 48 hours later.
+**Stage 4 — Conversion:** VoiceFlow CTO clicks from office IP, watches explainer (3:45), visits Chutes docs, signs up for API access with work email (alex@voiceflow.ai), joins Discord.
 
 **Stage 5 — Validation:** Validator confirms:
-- Reverse IP → NovaTech Inc.
-- NovaTech on Target Account List → **10x Conquest Multiplier**
-- Demo signup → **10x Conversion Weight**
+- Reverse IP → VoiceFlow AI Inc.
+- VoiceFlow on Target Account List (Replicate customer) → **10x Conquest Multiplier**
+- API signup → **10x Conversion Weight**
 - Human behavior verified via Honey-Link
+- Reasoning trace quality: strong → **+5% bonus**
 
-**Final Score:** 1.0 × 10 × 10 × 1.05 = **105 points** (vs 0.1 for residential click)
+**Final Score:** 1.0 × 10 × 10 × 1.05 = **105 points** (vs 0.1 for random residential click)
 
-**Stage 6 — Reward:** Miner receives ~6 TAO. Advertiser pays ~2 TAO on conversion.
+**Stage 6 — Reward:** Miner receives ~6 TAO. Chutes pays ~2 TAO success fee on verified conversion.
+
+**Outcome:** Replicate loses a customer touchpoint. Chutes gains a qualified developer lead. Bittensor ecosystem grows.
 
 ---
 
