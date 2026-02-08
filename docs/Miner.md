@@ -10,19 +10,19 @@ A SignalCast miner performs a continuous four-stage cycle that requires both com
 
 1. **Asset Scouting (Creative Intelligence):**
    * The miner monitors the Subnet 93 (Bitcast) metagraph to identify high-performing creative assets.
-   * Miners use LLMs to analyze asset transcripts and metadata to determine "Market Fit" for specific industrial briefs.
+   * Miners use LLMs to analyze asset transcripts and metadata to determine "Market Fit" for specific industrial briefs and lead magnets (e.g., matching a technical video to a specific whitepaper).
 
 2. **Technographic Reconnaissance (Targeting):**
-   * Miners scan the open web for "Market Ruptures" (e.g., a company removing a competitor’s script or posting a relevant job opening).
-   * They identify specific, gated B2B environments (specialized forums, Discord servers, industry-specific newsletters) where target accounts are active.
+   * Miners scan the open web for "Market Ruptures" (e.g., a company removing a competitor’s script, detecting legacy software versions, or identifying relevant job openings).
+   * They identify specific, gated B2B environments (specialized forums, Discord servers, industry-specific newsletters) and high-authority X.com threads where target accounts are active.
 
-3. **Precision Placement (Distribution):**
+3. **Precision Placement (The Interest Pipeline):**
    * Miners generate a unique tracking signature and "push" the SN93 asset into the identified zone.
-   * The placement must be contextually relevant; miners are incentivized to bypass traditional ad-blockers by using "Native" community-led distribution.
+   * Miners are incentivized to bridge the gap between social awareness and industrial intent by driving users toward "Lead Magnets" such as Whitepapers, Demos, and Contact Forms.
 
 4. **Telemetry Maintenance (Verification):**
-   * Miners host a lightweight redirect proxy that captures initial visitor telemetry (IP/User-Agent) before routing to the Bitcast asset.
-   * This telemetry is hashed and submitted to validators as a "Proof of Human Signal."
+   * Miners host a lightweight redirect proxy that captures initial visitor telemetry (IP/User-Agent) before routing to the Bitcast asset or landing page.
+   * This telemetry is hashed and submitted to validators as a "Proof of Human Signal" to verify the firmographic origin of the lead.
 
 ---
 
@@ -33,27 +33,27 @@ To maintain interoperability within the Bittensor ecosystem, miners must adhere 
 * **Input (From Subnet 93 / Validators):**
    * `Asset_UID`: The unique identifier of the content on SN93.
    * `Target_Account_List (TAL)`: A JSON array of corporate domains (e.g., `["competitor.com", "target-client.com"]`).
-   * `Brief_Context`: Semantic metadata describing the advertiser's pain points and USP.
+   * `Conversion_Targets`: Metadata specifying required actions (e.g., X.com Follows, Whitepaper DLs, Demo Signups).
 
 * **Output (To Validators):**
    * `Placement_Proof`: A URL or Social Object ID proving where the asset was shared.
-   * `Telemetry_Hash`: A cryptographic hash of the visitor’s Firmographic data.
-   * `Signal_Identity`: A ZK-proof (if utilizing SN2) verifying the humanity of the interaction.
+   * `Telemetry_Bundle`: A hashed packet containing the visitor’s Firmographic data and the specific "Interest Signal" triggered.
+   * `Signal_Identity`: A ZK-proof verifying the humanity and professional context of the interaction.
 
 ---
 
 ### Performance Dimensions
 
-Miners are scored on a multi-dimensional matrix. High-performance hardware is less important than **Strategic Accuracy**.
+Miners are scored on a multi-dimensional matrix where **Strategic Accuracy** outweighs raw volume.
 
-* **Conversion Accuracy (The "Quality" Score):**
-   * Measured by the ratio of "Total Clicks" to "Verified B2B Leads." Miners who drive 10 high-value corporate clicks are ranked higher than miners who drive 10,000 generic bot clicks.
-
+* **Conversion Depth (The "Quality" Score):**
+   * Measured by the miner's ability to move a user down the funnel. A "Demo Signup" (Bottom-of-funnel) generates significantly higher rewards than a "Like" (Top-of-funnel).
+   
 * **Targeting Precision (The "Sniper" Score):**
-   * How closely the traffic matches the TAL. Success is measured by the **Domain Authority** of the incoming IP addresses.
+   * Success is measured by the **Domain Authority** of the incoming traffic. Traffic originating from verified employees of the TAL or their major customers triggers the "Conquest Multiplier."
 
 * **Response Speed (The "Bounty" Score):**
-   * The latency between a Technographic Signal (e.g., a tech stack change) and the first verified engagement from that account. 
+   * The latency between a Technographic Signal (e.g., a competitor tech-stack change) and the first verified engagement from that account. 
 
-* **Brand Safety (The "Reputation" Score):**
-   * Validators use sentiment analysis to ensure the miner’s placement context is professional and not "spammy." High "Flag Rates" from target platforms will degrade this score.
+* **Contextual Integrity (The "Reputation" Score):**
+   * Validators use sentiment analysis and platform feedback to ensure the miner’s placement is professional and brand-safe. High "Spam" reports or low-quality environments result in score degradation and potential slashing.
