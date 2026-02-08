@@ -151,5 +151,3 @@ SignalCast is designed to operate within the boundaries of modern privacy regula
 This framework ensures SignalCast can deliver precision B2B targeting while respecting user privacy and regulatory requirements.
 
 ---
-
-Say "next" for file 3.
