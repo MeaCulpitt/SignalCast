@@ -47,13 +47,15 @@ SignalCast qualifies as a **Proof of Intelligence** subnet by requiring complex,
 
 ---
 
-### High-Level Algorithm
+### High-Level Algorithm: The Interest Pipeline
 
-1. **Task Ingest (Briefing):** Validators pull active SN93 assets, **Target Account List (TAL)**, and associated "Lead Magnets" (e.g., Whitepaper links).
-2. **Reconnaissance (Scouting):** Miners scan for **Technographic Signals** and identify "Pulse Zones" where target employees and their customers are active.
-3. **Submission (Commitment):** Miners register a unique tracking signature for a selected SN93 asset.
-4. **Distribution (Execution):** Miners "push" the content to the identified zones (X.com, industry forums, B2B newsletters).
-5. **Validation (The Audit):**
-    * **Firmographic Check:** Validators use **Reverse IP Lookup** to confirm the visitor's corporate domain.
-    * **Interest Check:** Validators audit for "Soft Conversions" (Likes/Follows) and "Hard Conversions" (Whitepaper downloads/Demo signups).
-6. **Scoring & Allocation:** Validators calculate the final score based on the **Conquest Multiplier** and **Conversion Depth**. Yuma Consensus processes these weights to allocate block rewards.
+SignalCast miners bridge the gap between social awareness and industrial intent. Potential customers discover "Lead Magnets" (Whitepapers, Demos, Contact Forms) through the following loop:
+
+1. **Task Ingest & Discovery:** Validators pull active SN93 assets, TALs, and Lead Magnets. Miners place these assets in front of "problem-aware" audiences on X.com, industry forums, and gated communities.
+2. **Engagement (Social Interest):** High-authority targets interact with the asset (Likes, Follows, Reposts). Validators verify these via social APIs, triggering a Tier 2 reward.
+3. **Conversion (Industrial Intent):** Users follow the SignalCast-tracked link to the advertiser's landing page and perform high-value actions:
+   * **Resource Ingest:** Downloading technical Whitepapers or Case Studies.
+   * **Product Evaluation:** Signing up for live Demos.
+   * **Direct Inquiry:** Submitting Contact Forms for procurement.
+4. **Validation (The Audit):** Validators cross-reference these off-chain events with the SN93 data loop and Reverse IP lookups to verify the lead's firmographic authority and issue Tier 3 "Conquest" rewards.
+5. **Scoring & Allocation:** Validators calculate the final score based on the **Conquest Multiplier** and **Conversion Depth**. Yuma Consensus processes these weights to allocate block rewards.
