@@ -1,6 +1,6 @@
 # SignalCast: The Targeted Amplification Subnet
 
-SignalCast is a decentralized **Market Intelligence & Targeted Amplification Layer** built on Bittensor. It is designed to leverage the outputs of **Subnet 93 (Bitcast)** by routing AI-generated content to specific customer groups including high-value industrial targets. 
+SignalCast is a decentralized **Market Intelligence & Targeted Amplification Layer** built on Bittensor. It is designed to leverage the outputs of **Subnet 93 (Bitcast)** by routing AI-generated advertising content to specific customer groups including high-value industrial targets. 
 
 Unlike traditional advertising networks that optimize for simple impressions, SignalCast optimizes for **Precision Engagement and Conversion**.
 
