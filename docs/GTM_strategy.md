@@ -8,9 +8,9 @@ SignalCast utilizes an **Adversarial Market Entry** strategy, focusing on high-p
 
 SignalCast will focus on three "Anchor" segments where the pain of high CAC and competitive pressure is most acute:
 
-* **The "Challenger" B2B SaaS:** Mid-market SaaS companies (e.g., in CRM, ERP, or Cybersecurity) that are currently spending heavily on LinkedIn Ads to compete with incumbents. Their primary use case is **Competitor Conquesting**—using SignalCast to identify and "snipe" customers of the market leader during contract renewal windows.
+* **The "Challenger" B2B SaaS:** Mid-market SaaS companies (e.g., in CRM, ERP, or Cybersecurity) that are currently spending heavily on LinkedIn Ads to compete with incumbents. Their primary use case is **Competitor Conquesting**—using SignalCast to identify and "snipe" customers of the market leader by capitalizing on **real-time dissatisfaction triggers** (e.g., service outages, negative social sentiment, or technical debt) in addition to standard contract renewal windows.
 * **Bittensor Native Projects:** Subnets and dApps within the ecosystem that need to drive actual adoption of their decentralized tools. They will act as **Pilot Partners**, using SignalCast to distribute their own creative assets (from SN93) to crypto-native and enterprise-adjacent audiences.
-* **Web3 Infrastructure Providers:** Companies selling RPC nodes, decentralized storage, or ZK-rollups. Their anchor use case is **Technographic Discovery**, targeting customers of centralized providers like AWS or Infura by detecting shifts in their infrastructure patterns.
+* **Web3 Infrastructure Providers:** Companies selling RPC nodes, decentralized storage, or ZK-rollups. Their anchor use case is **Technographic Discovery**, targeting customers of centralized providers like AWS or Infura by detecting shifts in their infrastructure patterns or performance bottlenecks.
 
 ---
 
