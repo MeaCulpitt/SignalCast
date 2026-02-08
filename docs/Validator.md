@@ -1,6 +1,6 @@
 # SignalCast: Validator Architecture & Audit Logic
 
-The SignalCast validator acts as the **Strategic Arbiter** of the subnet. Its primary responsibility is to audit the **Intent and Authority** of the traffic driven by miners. By interfacing with Subnet 93 (Bitcast) and external Firmographic registries, the validator ensures that every TAO of emission is backed by verified engagement from a competitor's customer base.
+The SignalCast validator acts as the **Verification Authority** of the subnet. Its primary responsibility is to confirm that content reached the **right audience** — users who would genuinely benefit from seeing it. By interfacing with Subnet 93 (Bitcast) and external firmographic registries, the validator ensures that every TAO of emission is backed by verified audience relevance.
 
 ---
 
@@ -42,7 +42,7 @@ Validators use a layered approach, where each signal contributes to a confidence
 │  └─ Corporate network identification                    │
 ├─────────────────────────────────────────────────────────┤
 │  Layer 1: Technographic Context (Lowest Confidence)     │
-│  └─ Placement context suggests professional audience    │
+│  └─ Placement context suggests relevant audience        │
 └─────────────────────────────────────────────────────────┘
 ```
 
@@ -52,11 +52,11 @@ Validators use a layered approach, where each signal contributes to a confidence
 
 ### Layer 1: Technographic Context (Weight: 0.5x)
 
-The context of where the asset was placed suggests professional intent.
+The context of where the asset was placed suggests audience relevance.
 
 **Signals:**
-* Placed in B2B-specific forum (e.g., Hacker News, industry Slack)
-* Placed in thread discussing professional tools
+* Placed in community where target audience gathers (e.g., Hacker News, industry Slack)
+* Placed in thread discussing relevant tools or challenges
 * Time of engagement correlates with business hours in target region
 
 **Limitations:** Contextual only. Does not verify the specific viewer.
@@ -80,7 +80,7 @@ Session behavior consistent with professional, human engagement.
 * Engagement during business hours (user's timezone)
 * Session duration > 60 seconds
 * Natural scroll/cursor patterns (Honey-Link)
-* Multiple page views suggesting research intent
+* Multiple page views suggesting genuine interest
 
 **Limitations:** Sophisticated bots can mimic some patterns. Does not identify specific organization.
 
@@ -118,7 +118,7 @@ def calculate_fcs(signals):
     score = 0.0
     
     # Layer 1: Context
-    if signals.professional_context:
+    if signals.relevant_context:
         score += 0.5
     
     # Layer 2: Reverse IP
@@ -153,7 +153,7 @@ def calculate_fcs(signals):
 
 | FCS Range | Classification | Reward Tier |
 |-----------|----------------|-------------|
-| 15+ | Verified Conquest | Tier 1 (10x) |
+| 15+ | Verified Target Audience | Tier 1 (10x) |
 | 8-14.9 | High Confidence | Tier 2 (3x) |
 | 3-7.9 | Moderate Confidence | Tier 3 (1x) |
 | < 3 | Low Confidence | Tier 4 (0.1x) |
@@ -168,7 +168,7 @@ def calculate_fcs(signals):
 * Clicked from Hacker News thread (Layer 1: +0.5)
 * Session shows natural behavior during business hours (Layer 3: +2.5)
 * Signs up for API with alex@voiceflow.ai (Layer 5: +10)
-* VoiceFlow is on Target Account List (bonus)
+* VoiceFlow is on Target Account List
 
 **Result:** FCS = 13+ → Tier 2 High Confidence (or Tier 1 with additional signals)
 
@@ -180,7 +180,7 @@ def calculate_fcs(signals):
 
 Validators evaluate miner reasoning traces using:
 
-1. **Consistency checks:** Does the stated pain point actually appear in the referenced tweet/review?
+1. **Consistency checks:** Does the stated relevance actually match the referenced evidence?
 2. **Technographic verification:** Is the target actually using the competitor's product?
 3. **Temporal logic:** Does the timing rationale align with observable events?
 4. **Semantic coherence:** Does the reasoning make logical sense?
@@ -191,10 +191,10 @@ Validators use LLMs to assist evaluation but apply human-calibrated scoring rubr
 
 | Red Flag | Interpretation |
 |----------|----------------|
-| Generic reasoning copied across placements | Template-based, not strategic |
+| Generic reasoning copied across placements | Template-based, not researched |
 | Reasoning doesn't match observable evidence | Fabricated justification |
-| Timing rationale contradicts public data | Made up decision window |
-| Target not verifiable in technographic registry | False customer claim |
+| Timing rationale contradicts public data | Made up opportunity |
+| Target not verifiable as competitor user | False audience claim |
 
 Miners with consistently weak reasoning receive score penalties and eventual stake slashing.
 
@@ -212,7 +212,7 @@ Utilizing the **Honey-Link Protocol**, validators analyze telemetry for "Human S
 
 ## Evaluation Cadence
 
-To ensure the network remains responsive to fast-moving "Market Ruptures," the evaluation follows a dual-track schedule:
+To ensure the network remains responsive to audience opportunities, the evaluation follows a dual-track schedule:
 
 ### 1. Real-Time Telemetry Processing
 
@@ -224,7 +224,7 @@ Every **360 blocks (approximately 1 hour)**, the validator aggregates the perfor
 
 ### 3. Bounty Settlement
 
-Technographic Bounties (e.g., detecting a competitor's customer removing a script) are evaluated on a **First-to-Verify** basis. Once a miner submits a "Proof of Signal," validators have a 10-minute window to reach consensus.
+Discovery Bounties (e.g., mapping a new audience segment) are evaluated on a **First-to-Verify** basis. Once a miner submits evidence, validators have a 10-minute window to reach consensus.
 
 ---
 
@@ -238,10 +238,10 @@ Validators earn dividends based on their **V-Trust score**. Consistently scoring
 
 ### Attribution Accuracy Rebates
 
-A portion of the advertiser's "Distribution Fee" is held in escrow. Validators demonstrating the highest correlation between internal scores and **actual sales data** reported by the advertiser receive a "Performance Dividend."
+A portion of the advertiser's "Distribution Fee" is held in escrow. Validators demonstrating the highest correlation between internal scores and **actual conversion data** reported by the advertiser receive a "Performance Dividend."
 
 ### Fraud Detection Bounties
 
-Validators that are the first to identify and provide a "Proof of Adversarial Intent" against a malicious miner are rewarded with a portion of the slashed stake.
+Validators that are the first to identify and provide proof of fraudulent miner behavior are rewarded with a portion of the slashed stake.
 
 ---
