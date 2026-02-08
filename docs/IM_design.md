@@ -4,14 +4,6 @@ SignalCast is an intelligent distribution layer that bridges the gap between AI 
 
 ---
 
-Got it. Let me rewrite the worked example with a Bittensor subnet as advertiser targeting a competitor's users.
-
----
-
-**Updated Worked Example:**
-
----
-
 ## Worked Example: The Interest Pipeline in Action
 
 ### Scenario: Subnet 64 (Chutes) vs. Replicate
