@@ -135,14 +135,24 @@ Pay only for results:
 
 ## Getting Started
 
-*Coming soon: Miner setup guide, Validator requirements, Advertiser onboarding*
+## Pilot Program
 
----
+SignalCast launches with a curated pilot to solve the cold-start problem:
 
-## Links
+### Phase 0: Closed Beta (Weeks 1-4)
+* 5-10 B2B tech companies provide Target Account Lists and conversion tracking access
+* Miners compete on known-good accounts with clear success criteria
+* Validators calibrate scoring against real conversion data
 
-- **Bittensor:** https://bittensor.com
-- **Subnet 93 (Bitcast):** Content creation partner
+### Phase 1: Case Study Publication (Week 5-6)
+* Publish verified ROI metrics from pilot participants
+* Document cost-per-qualified-lead vs. traditional channels
+* Release miner earnings data to attract competitive talent
+
+### Phase 2: Open Registration (Week 7+)
+* Open advertiser onboarding
+* Miner registration with stake requirements
+* Full emission schedule activated
 
 ---
 
