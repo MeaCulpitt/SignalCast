@@ -44,6 +44,39 @@ The SignalCast emission schedule follows a **Precision Targeting** model that pr
 * **Tier 3: Standard Performance & Discovery (20%):** Base rewards for organic conversion across general niche audiences.
 * **Discovery Bounties:** A dynamic pool of emissions is reserved for miners who identify new pockets of relevant audiences — mapping which companies use which tools enables better content targeting.
 
+------
+
+## Journey-Weighted Scoring
+
+Single conversions are valuable, but sustained engagement over time is more valuable. SignalCast rewards miners who nurture accounts through the full buyer journey.
+
+### Time-Weighted Multipliers
+
+| Journey Length | Multiplier | Rationale |
+|----------------|------------|-----------|
+| Single touchpoint | 1x | Base conversion value |
+| 2-3 touchpoints over 14 days | 1.5x | Demonstrated follow-through |
+| 4+ touchpoints over 30 days | 2x | Full nurture sequence |
+| Multi-stakeholder engagement (same company) | 3x | Account penetration |
+
+### Journey Attribution
+
+When multiple miners touch the same account, rewards are distributed based on contribution:
+
+* **First touch (awareness):** 20% of final conversion value
+* **Middle touches (consideration):** 10% each, capped at 30% total
+* **Last touch (conversion):** 50% of final conversion value
+
+This prevents "swoop and grab" tactics where miners wait for accounts already in-market and claim full credit for a single touchpoint.
+
+### Example
+
+1. Miner A places content in HN thread. VoiceFlow CTO clicks, reads, leaves.
+2. Two weeks later, Miner B places related content in industry newsletter. Same CTO clicks, downloads whitepaper.
+3. One week later, Miner A places demo video in LinkedIn. CTO books demo.
+
+**Attribution:** Miner A: 20% + 50% = 70%. Miner B: 30%. Both rewarded proportionally.
+
 ---
 
 ## Incentive Alignment for Miners and Validators
