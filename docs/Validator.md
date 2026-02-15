@@ -46,6 +46,29 @@ Validators use a layered approach, where each signal contributes to a confidence
 └─────────────────────────────────────────────────────────┘
 ```
 
+### Layer 6: Post-Conversion Validation (Weight: 15x)
+
+The highest-confidence signal: confirmation that the conversion resulted in real business activity.
+
+**Signals:**
+* Demo actually occurred (calendar integration or advertiser confirmation)
+* Sales team marked lead as qualified
+* Trial account showed product usage
+* Contract or payment initiated
+
+**Implementation:**
+* Advertisers provide conversion webhook or CRM access (Salesforce, HubSpot)
+* Validator polls for outcome within 7-day window
+* Confirmed outcomes unlock Layer 6 bonus retroactively
+
+**Escrow Model:**
+* 30% of miner reward held in escrow pending post-conversion validation
+* If confirmed within 7 days: full release + 15x bonus
+* If unconfirmed but no negative signal: escrow released at 1x (no bonus)
+* If explicitly rejected (fake lead, no-show): escrow slashed
+
+This creates accountability beyond the form submission. Miners who consistently generate leads that convert to pipeline earn dramatically more than those gaming top-of-funnel metrics.
+
 ---
 
 ## Layer-by-Layer Breakdown
