@@ -26,48 +26,28 @@ Reverse IP lookup has been a cornerstone of B2B visitor identification for years
 Validators use a layered approach, where each signal contributes to a confidence score:
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│                    VERIFICATION STACK                    │
-├─────────────────────────────────────────────────────────┤
-│  Layer 5: Conversion Verification (Highest Confidence)  │
-│  └─ Work email domain at form submission                │
-├─────────────────────────────────────────────────────────┤
-│  Layer 4: Referral Context                              │
-│  └─ LinkedIn profile → click (professional context)     │
-├─────────────────────────────────────────────────────────┤
-│  Layer 3: Behavioral Signals                            │
-│  └─ Session patterns consistent with professional use   │
-├─────────────────────────────────────────────────────────┤
-│  Layer 2: Reverse IP / ASN Lookup                       │
-│  └─ Corporate network identification                    │
-├─────────────────────────────────────────────────────────┤
-│  Layer 1: Technographic Context (Lowest Confidence)     │
-│  └─ Placement context suggests relevant audience        │
-└─────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────┐
+│                    VERIFICATION STACK                            │
+├─────────────────────────────────────────────────────────────────┤
+│  Layer 6: Post-Conversion Validation (Highest Confidence)       │
+│  └─ Sales confirmation, demo occurred, trial usage              │
+├─────────────────────────────────────────────────────────────────┤
+│  Layer 5: Conversion Verification                               │
+│  └─ Work email domain at form submission                        │
+├─────────────────────────────────────────────────────────────────┤
+│  Layer 4: Referral Context                                      │
+│  └─ LinkedIn profile → click (professional context)             │
+├─────────────────────────────────────────────────────────────────┤
+│  Layer 3: Behavioral Signals                                    │
+│  └─ Session patterns consistent with professional use           │
+├─────────────────────────────────────────────────────────────────┤
+│  Layer 2: Reverse IP / ASN Lookup                               │
+│  └─ Corporate network identification                            │
+├─────────────────────────────────────────────────────────────────┤
+│  Layer 1: Technographic Context (Lowest Confidence)             │
+│  └─ Placement context suggests relevant audience                │
+└─────────────────────────────────────────────────────────────────┘
 ```
-
-### Layer 6: Post-Conversion Validation (Weight: 15x)
-
-The highest-confidence signal: confirmation that the conversion resulted in real business activity.
-
-**Signals:**
-* Demo actually occurred (calendar integration or advertiser confirmation)
-* Sales team marked lead as qualified
-* Trial account showed product usage
-* Contract or payment initiated
-
-**Implementation:**
-* Advertisers provide conversion webhook or CRM access (Salesforce, HubSpot)
-* Validator polls for outcome within 7-day window
-* Confirmed outcomes unlock Layer 6 bonus retroactively
-
-**Escrow Model:**
-* 30% of miner reward held in escrow pending post-conversion validation
-* If confirmed within 7 days: full release + 15x bonus
-* If unconfirmed but no negative signal: escrow released at 1x (no bonus)
-* If explicitly rejected (fake lead, no-show): escrow slashed
-
-This creates accountability beyond the form submission. Miners who consistently generate leads that convert to pipeline earn dramatically more than those gaming top-of-funnel metrics.
 
 ---
 
@@ -130,6 +110,29 @@ The user voluntarily provides work identity at conversion.
 
 **Limitations:** Only applies to bottom-of-funnel conversions.
 
+### Layer 6: Post-Conversion Validation (Weight: 15x)
+
+The highest-confidence signal: confirmation that the conversion resulted in real business activity.
+
+**Signals:**
+* Demo actually occurred (calendar integration or advertiser confirmation)
+* Sales team marked lead as qualified
+* Trial account showed product usage
+* Contract or payment initiated
+
+**Implementation:**
+* Advertisers provide conversion webhook or CRM access (Salesforce, HubSpot)
+* Validator polls for outcome within 7-day window
+* Confirmed outcomes unlock Layer 6 bonus retroactively
+
+**Escrow Model:**
+* 30% of miner reward held in escrow pending post-conversion validation
+* If confirmed within 7 days: full release + 15x bonus
+* If unconfirmed but no negative signal: escrow released at 1x (no bonus)
+* If explicitly rejected (fake lead, no-show): escrow slashed
+
+This creates accountability beyond the form submission. Miners who consistently generate leads that convert to pipeline earn dramatically more than those gaming top-of-funnel metrics.
+
 ---
 
 ## Composite Confidence Scoring
@@ -169,6 +172,10 @@ def calculate_fcs(signals):
         else:
             score += 3.0
     
+    # Layer 6: Post-Conversion
+    if signals.post_conversion_confirmed:
+        score += 15.0
+    
     return score
 ```
 
@@ -176,7 +183,8 @@ def calculate_fcs(signals):
 
 | FCS Range | Classification | Reward Tier |
 |-----------|----------------|-------------|
-| 15+ | Verified Target Audience | Tier 1 (10x) |
+| 20+ | Verified + Confirmed | Tier 0 (15x) |
+| 15-19.9 | Verified Target Audience | Tier 1 (10x) |
 | 8-14.9 | High Confidence | Tier 2 (3x) |
 | 3-7.9 | Moderate Confidence | Tier 3 (1x) |
 | < 3 | Low Confidence | Tier 4 (0.1x) |
@@ -268,3 +276,44 @@ A portion of the advertiser's "Distribution Fee" is held in escrow. Validators d
 Validators that are the first to identify and provide proof of fraudulent miner behavior are rewarded with a portion of the slashed stake.
 
 ---
+
+## Decentralized IP Intelligence Layer
+
+SignalCast reduces reliance on centralized IP databases (MaxMind, Clearbit) by building a network-native intelligence layer.
+
+### Miner Contributions
+
+Miners can stake on IP-to-organization mappings:
+
+```json
+{
+  "ip_range": "192.0.2.0/24",
+  "organization": "VoiceFlow AI Inc.",
+  "confidence": 0.85,
+  "evidence": "GitHub commit metadata, LinkedIn job posting",
+  "stake": 0.1
+}
+```
+
+### Validator Cross-Reference
+
+When verifying an engagement:
+1. Query 3+ miner-staked mappings for the IP
+2. Compare against external sources (if available)
+3. Weight by stake amount and historical accuracy
+4. Consensus mapping used for firmographic scoring
+
+### Incentives
+
+* Accurate mappings: stake returned + share of verification fees
+* Inaccurate mappings (contradicted by conversion data): stake slashed
+* Novel mappings (first to identify): discovery bounty
+
+### Privacy Preservation
+
+* IP ranges stored, not individual IPs
+* Organization-level only, no individual identification
+* Mappings expire after 90 days without reconfirmation
+
+Over time, the network builds proprietary corporate network intelligence that no single miner or external vendor controls.
+```
