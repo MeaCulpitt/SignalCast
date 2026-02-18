@@ -30,12 +30,14 @@ Most B2B advertising is wasted. Content reaches random audiences, CAC keeps risi
 │                   (API signup, demo request, whitepaper DL)     │
 ├─────────────────────────────────────────────────────────────────┤
 │  4. VERIFICATION  Validators confirm audience relevance         │
-│                   via multi-modal firmographic checks           │
+│                   via multi-modal firmographic checks            │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
 **Miners** earn TAO by placing content in front of verified competitor users.
+
 **Validators** verify that content reached the intended audience.
+
 **Advertisers** pay only for verified conversions from relevant audiences.
 
 ---
@@ -53,22 +55,52 @@ Content reached someone who genuinely needed it.
 
 ---
 
+## Scoring System
+
+### Score Calculation
+
+```
+Score = Base (1.0) × Big Fish Multiplier × Conversion Multiplier × Reasoning Bonus
+```
+
+### Big Fish Multiplier
+
+| Tier | Audience | Multiplier |
+|------|----------|------------|
+| Tier 1 | Verified competitor users | 10x |
+| Tier 2 | High-fit industry targets | 3x |
+| Tier 3 | General relevant audience | 1x |
+
+### Conversion Multipliers
+
+| Conversion Type | Multiplier |
+|----------------|------------|
+| API Signup | 10x |
+| Demo Request | 5x |
+| Whitepaper Download | 2x |
+| Social Follow | 2x |
+| Engagement | 1x |
+
+### Proportional Distribution
+
+- **90%** of pool: Distributes proportionally based on score weights
+- **10%** of pool: Discovery bounties (if unclaimed, rolls back into main pool)
+
+---
+
 ## Key Features
 
 ### Precision Targeting
 Reach users of specific competitor products, not random audiences. Miners research which companies use which tools and find where those decision-makers gather.
 
 ### Multi-Modal Verification
-Reverse IP alone misses 40% of remote workers. SignalCast uses a 5-layer verification stack: technographic context, reverse IP, behavioral signals, referral context, and conversion verification.
+Reverse IP alone misses 40% of remote workers. SignalCast uses verification: technographic context, reverse IP, behavioral signals, referral context, and conversion verification.
 
 ### Proof of Intelligence
-Miners submit reasoning traces documenting their audience research. Validators score reasoning quality. Gaming is detected and penalized.
+Miners submit reasoning traces documenting their audience research. Validators score reasoning quality (0-20% bonus). Gaming is detected and penalized.
 
 ### Privacy by Design
 No PII storage. IPs hashed immediately. No cookies or cross-site tracking. GDPR-compatible under legitimate interest for B2B professional context.
-
-### Content Source Flexibility
-Primary integration with SN93 (Bitcast), but supports any content source. SignalCast is SN93-compatible, not SN93-dependent.
 
 ---
 
@@ -78,26 +110,37 @@ Primary integration with SN93 (Bitcast), but supports any content source. Signal
 |----------|-------------|
 | [Incentive & Mechanism Design](./docs/IM_design.md) | Emission logic, reward tiers, proof of intelligence framework |
 | [Miner Architecture](./docs/Miner.md) | Audience research, placement, telemetry, reasoning requirements |
-| [Validator Architecture](./docs/Validator.md) | Multi-modal verification stack, scoring, fraud detection |
+| [Validator Architecture](./docs/Validator.md) | Verification stack, scoring, fraud detection |
+| [Advertiser Integration](./docs/Advertiser_Integration.md) | How advertisers receive and act on verified leads |
 | [Business Logic](./docs/Business_Logic.md) | Problem statement, competitive landscape, privacy compliance |
 | [Go-To-Market Strategy](./docs/GTM_strategy.md) | Target users, growth channels, early incentives |
 
 ---
 
-## Reward Tiers
+## Journey-Weighted Scoring
 
-| Tier | Audience | Multiplier |
-|------|----------|------------|
-| **Tier 1** | Verified competitor users | 10x |
-| **Tier 2** | High-fit industry targets | 3x |
-| **Tier 3** | General relevant audience | 1x |
-| **Tier 4** | Low confidence / residential | 0.1x |
+When multiple miners touch the same account:
 
-Conversion depth adds another multiplier:
-- API signup / Demo request: 10x
-- Whitepaper download: 5x
-- Social follow: 3x
-- Engagement (like/repost): 1x
+| Touch | Reward Share |
+|-------|---------------|
+| First touch (awareness) | 40% |
+| Last touch (conversion) | 40% |
+| Highest-engagement touch | 20% |
+
+This prevents "swoop and grab" behavior — miners are incentivized to nurture accounts over time.
+
+---
+
+## Discovery Bounties
+
+10% of the emission pool is allocated for discovery bounties:
+
+- Identify new verified competitor users
+- Find decision-maker contacts
+- Discover new target channels
+- First to identify emerging competitors
+
+Distribution is proportional to claims within the 10% pool. If unclaimed, rolls back into main pool.
 
 ---
 
@@ -109,7 +152,7 @@ Earn TAO by:
 3. Placing relevant content with tracked links
 4. Submitting reasoning traces documenting your research
 
-Higher rewards for better audience research and deeper conversions.
+**Entry:** 0.2 TAO stake required. No conversion threshold — anyone can participate.
 
 ---
 
@@ -117,16 +160,17 @@ Higher rewards for better audience research and deeper conversions.
 
 Earn dividends by:
 1. Verifying that content reached intended audiences
-2. Running multi-modal firmographic checks
-3. Scoring miner reasoning quality
-4. Detecting and flagging fraudulent placements
+2. Scoring miner reasoning quality (0-20% bonus)
+3. Validating tier claims (Tier 1/2/3)
+
+Validators operate under **Yuma Consensus** (Bittensor's standard validator mechanism).
 
 ---
 
 ## For Advertisers
 
 Pay only for results:
-1. Define your target audience (users of specific competitor products)
+1. Define your target audience (competitor users, industry, ICP)
 2. Provide content or use SN93 assets
 3. Set conversion targets (signups, demos, downloads)
 4. Pay TAO success fee only on verified conversions
@@ -135,29 +179,27 @@ Pay only for results:
 
 ## Getting Started
 
-## Pilot Program
+### Pilot Program
 
 SignalCast launches with a curated pilot to solve the cold-start problem:
 
-### Phase 0: Closed Beta (Weeks 1-4)
-* 5-10 B2B tech companies provide Target Account Lists and conversion tracking access
-* Miners compete on known-good accounts with clear success criteria
-* Validators calibrate scoring against real conversion data
+**Phase 0: Closed Beta (Weeks 1-4)**
+- 5-10 B2B tech companies provide Target Account Lists and conversion tracking
+- Miners compete on known-good accounts with clear success criteria
+- Validators calibrate scoring against real conversion data
 
-### Phase 1: Case Study Publication (Week 5-6)
-* Publish verified ROI metrics from pilot participants
-* Document cost-per-qualified-lead vs. traditional channels
-* Release miner earnings data to attract competitive talent
+**Phase 1: Case Study Publication (Week 5-6)**
+- Publish verified ROI metrics from pilot participants
+- Document cost-per-qualified-lead vs. traditional channels
+- Release miner earnings data to attract competitive talent
 
-### Phase 2: Open Registration (Week 7+)
-* Open advertiser onboarding
-* Miner registration with stake requirements
-* Full emission schedule activated
+**Phase 2: Open Registration (Week 7+)**
+- Open advertiser onboarding
+- Miner registration (0.2 TAO stake)
+- Full emission schedule activated
 
 ---
 
 ## License
 
 MIT
-
----
