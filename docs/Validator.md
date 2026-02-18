@@ -1,319 +1,191 @@
-# SignalCast: Validator Architecture & Audit Logic
-
-The SignalCast validator acts as the **Verification Authority** of the subnet. Its primary responsibility is to confirm that content reached the **right audience** — users who would genuinely benefit from seeing it. By interfacing with Subnet 93 (Bitcast) and external firmographic registries, the validator ensures that every TAO of emission is backed by verified audience relevance.
+# SignalCast: Validator Design
 
 ---
 
-## Multi-Modal Verification Framework
+## 1. Validator Tasks
 
-### The Challenge with Reverse IP Alone
+### 1.1 Audience Verification
 
-Reverse IP lookup has been a cornerstone of B2B visitor identification for years. However, modern work patterns have reduced its reliability:
+- Verify that content reached the intended audience tier
+- Cross-reference miner claims with technographic data sources
+- Confirm signal source evidence provided by miners
 
-| Factor | Impact on Reverse IP |
-|--------|---------------------|
-| Remote work | ~40% of corporate users now work from home/VPN |
-| Cloud NAT | Companies route traffic through AWS/GCP, masking origin |
-| Mobile devices | Carrier IPs are residential, not corporate |
-| Privacy tools | VPNs, Tor, and privacy browsers block attribution |
+### 1.2 Reasoning Scoring
 
-**SignalCast addresses this by implementing a multi-modal verification stack.** Reverse IP remains valuable but is no longer sufficient alone.
+- Score miner reasoning traces on 4 dimensions (0-5 each)
+- Calculate reasoning bonus (0-20%)
+- Flag fabricated or weak reasoning
+
+### 1.3 Tier Validation
+
+- Validate miner-claimed tier against evidence
+- Confirm tier upgrades or downgrades as needed
+- Handle miner appeals with additional evidence review
+
+### 1.4 Anti-Gaming Enforcement
+
+- Monitor honey-link telemetry for non-human behavior
+- Apply frequency caps to prevent over-exposure
+- Detect and penalize gaming patterns
 
 ---
 
-## The Verification Stack
+## 2. Scoring and Evaluation Methodology
 
-Validators use a layered approach, where each signal contributes to a confidence score:
+### 2.1 Reasoning Quality Scoring
+
+Validators score each submission on 4 dimensions (0-5 scale each):
+
+| Dimension | What It Measures | Scoring Criteria |
+|-----------|------------------|------------------|
+| Signal Source Quality | How credible is the targeting signal? | 0 = no source, 5 = verified first-party data |
+| Audience Identification | Is the company correctly identified as a target? | 0 = wrong company, 5 = verified domain + role |
+| Relevance Match | Does the content address the identified need? | 0 = irrelevant, 5 = perfect alignment |
+| Channel Selection | Is this the right platform for this audience? | 0 = wrong platform, 5 = optimal fit |
+
+### 2.2 Reasoning Bonus Calculation
+
+- Each dimension: 0-5 score
+- Total: 0-20 points → 0-20% bonus applied to final score
+
+| Total Score | Reasoning Bonus |
+|-------------|------------------|
+| 0-4 | 0% |
+| 5-8 | 5% |
+| 9-12 | 10% |
+| 13-16 | 15% |
+| 17-20 | 20% |
+
+### 2.3 Tier Verification
+
+#### Tier 1 Verification
+
+- Check self-reported signal (URL, transcript)
+- Verify first-party list match
+- Confirm company domain and link to need
+
+#### Tier 2 Verification
+
+- Pull technographic data (BuiltWith, Clearbit, GitHub)
+- Confirm active/recent usage (< 90 days)
+- Verify job postings correlate with product category
+
+#### Tier 3 Verification
+
+- Confirm industry/vertical alignment
+- Verify ICP fit (size, role)
+- Check community membership if applicable
+
+### 2.4 Score Calculation
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                    VERIFICATION STACK                            │
-├─────────────────────────────────────────────────────────────────┤
-│  Layer 6: Post-Conversion Validation (Highest Confidence)       │
-│  └─ Sales confirmation, demo occurred, trial usage              │
-├─────────────────────────────────────────────────────────────────┤
-│  Layer 5: Conversion Verification                               │
-│  └─ Work email domain at form submission                        │
-├─────────────────────────────────────────────────────────────────┤
-│  Layer 4: Referral Context                                      │
-│  └─ LinkedIn profile → click (professional context)             │
-├─────────────────────────────────────────────────────────────────┤
-│  Layer 3: Behavioral Signals                                    │
-│  └─ Session patterns consistent with professional use           │
-├─────────────────────────────────────────────────────────────────┤
-│  Layer 2: Reverse IP / ASN Lookup                               │
-│  └─ Corporate network identification                            │
-├─────────────────────────────────────────────────────────────────┤
-│  Layer 1: Technographic Context (Lowest Confidence)             │
-│  └─ Placement context suggests relevant audience                │
-└─────────────────────────────────────────────────────────────────┘
+Final Score = Base (1.0) × Big Fish Multiplier × Conversion Multiplier × Reasoning Bonus
 ```
 
 ---
 
-## Layer-by-Layer Breakdown
+## 3. Evaluation Cadence
 
-### Layer 1: Technographic Context (Weight: 0.5x)
+### 3.1 Per-Submission Evaluation
 
-The context of where the asset was placed suggests audience relevance.
+1. Miner submits placement with reasoning trace
+2. Validator verifies signal source exists
+3. Validator confirms tier claim
+4. Validator scores reasoning quality
+5. Score calculated and recorded
 
-**Signals:**
-* Placed in community where target audience gathers (e.g., Hacker News, industry Slack)
-* Placed in thread discussing relevant tools or challenges
-* Time of engagement correlates with business hours in target region
+### 3.2 Cycle Aggregation
 
-**Limitations:** Contextual only. Does not verify the specific viewer.
+1. All miner scores aggregated for the cycle
+2. Discovery bounty claims collected
+3. Proportional distribution calculated
+4. Rewards allocated
 
-### Layer 2: Reverse IP / ASN Lookup (Weight: 3x)
+### 3.3 Ongoing Monitoring
 
-Traditional IP-to-organization mapping.
-
-**Signals:**
-* IP resolves to known corporate ASN
-* Organization matches Target Account List
-* IP not flagged as data center / VPN / residential proxy
-
-**Limitations:** Misses remote workers (~40% of traffic). Can be spoofed with corporate VPN access.
-
-### Layer 3: Behavioral Signals (Weight: 2x)
-
-Session behavior consistent with professional, human engagement.
-
-**Signals:**
-* Engagement during business hours (user's timezone)
-* Session duration > 60 seconds
-* Natural scroll/cursor patterns (Honey-Link)
-* Multiple page views suggesting genuine interest
-
-**Limitations:** Sophisticated bots can mimic some patterns. Does not identify specific organization.
-
-### Layer 4: Referral Context (Weight: 5x)
-
-The user arrived via a platform that provides professional context.
-
-**Signals:**
-* Click originated from LinkedIn (profile context available)
-* Click from corporate email link (e.g., Outlook click tracking)
-* Referrer header indicates professional tool (Slack, Teams link preview)
-
-**Limitations:** Referrer headers can be stripped by privacy settings.
-
-### Layer 5: Conversion Verification (Weight: 10x)
-
-The user voluntarily provides work identity at conversion.
-
-**Signals:**
-* Form submission with work email domain (e.g., @voiceflow.ai)
-* Email domain matches Target Account List
-* Email domain matches Reverse IP result (cross-validation)
-* API signup or calendar booking with work email
-
-**Limitations:** Only applies to bottom-of-funnel conversions.
-
-### Layer 6: Post-Conversion Validation (Weight: 15x)
-
-The highest-confidence signal: confirmation that the conversion resulted in real business activity.
-
-**Signals:**
-* Demo actually occurred (calendar integration or advertiser confirmation)
-* Sales team marked lead as qualified
-* Trial account showed product usage
-* Contract or payment initiated
-
-**Implementation:**
-* Advertisers provide conversion webhook or CRM access (Salesforce, HubSpot)
-* Validator polls for outcome within 7-day window
-* Confirmed outcomes unlock Layer 6 bonus retroactively
-
-**Escrow Model:**
-* 30% of miner reward held in escrow pending post-conversion validation
-* If confirmed within 7 days: full release + 15x bonus
-* If unconfirmed but no negative signal: escrow released at 1x (no bonus)
-* If explicitly rejected (fake lead, no-show): escrow slashed
-
-This creates accountability beyond the form submission. Miners who consistently generate leads that convert to pipeline earn dramatically more than those gaming top-of-funnel metrics.
+- Random audit sampling of past verifications
+- Pattern detection for gaming behavior
+- Reputation tracking for repeat miners
 
 ---
 
-## Composite Confidence Scoring
+## 4. Validator Incentive Alignment
 
-Validators calculate a **Firmographic Confidence Score (FCS)** by combining signals:
+### 4.1 Reward Mechanism
 
-```python
-def calculate_fcs(signals):
-    score = 0.0
-    
-    # Layer 1: Context
-    if signals.relevant_context:
-        score += 0.5
-    
-    # Layer 2: Reverse IP
-    if signals.reverse_ip_match:
-        score += 3.0
-    elif signals.reverse_ip_corporate_but_not_tal:
-        score += 1.0
-    
-    # Layer 3: Behavioral
-    if signals.human_behavior_verified:
-        score += 2.0
-    if signals.business_hours:
-        score += 0.5
-    
-    # Layer 4: Referral
-    if signals.linkedin_referral:
-        score += 5.0
-    elif signals.professional_referral:
-        score += 2.0
-    
-    # Layer 5: Conversion
-    if signals.work_email_submitted:
-        if signals.email_domain_in_tal:
-            score += 10.0
-        else:
-            score += 3.0
-    
-    # Layer 6: Post-Conversion
-    if signals.post_conversion_confirmed:
-        score += 15.0
-    
-    return score
-```
+Validators earn dividends by:
 
-**Scoring Thresholds:**
+- Verifying content reached the intended audience
+- Scoring miner reasoning quality accurately
+- Validating tier claims correctly
 
-| FCS Range | Classification | Reward Tier |
-|-----------|----------------|-------------|
-| 20+ | Verified + Confirmed | Tier 0 (15x) |
-| 15-19.9 | Verified Target Audience | Tier 1 (10x) |
-| 8-14.9 | High Confidence | Tier 2 (3x) |
-| 3-7.9 | Moderate Confidence | Tier 3 (1x) |
-| < 3 | Low Confidence | Tier 4 (0.1x) |
+### 4.2 Yuma Consensus
+
+Validators operate under **Bittensor's standard Yuma Consensus**:
+
+- Rewards scale with verification accuracy
+- Poor verification impacts consensus weight
+- Economic incentive to verify correctly
+
+### 4.3 Alignment with Miners
+
+- Validators benefit from miner success (more submissions = more verification rewards)
+- Quality verification encourages high-quality miner participation
+- Fair scoring builds trusted ecosystem
 
 ---
 
-## Handling Remote Workers
+## 5. Anti-Gaming Mechanisms
 
-**Scenario:** Developer works from home. IP is residential (Comcast). Reverse IP fails.
+### 5.1 Honey-Link Telemetry
 
-**But:**
-* Clicked from Hacker News thread (Layer 1: +0.5)
-* Session shows natural behavior during business hours (Layer 3: +2.5)
-* Signs up for API with alex@voiceflow.ai (Layer 5: +10)
-* VoiceFlow is on Target Account List
+- Wrap distributed links in invisible telemetry layers
+- Detect non-human behavior patterns:
+  - Linear scroll velocity
+  - No cursor movement
+  - Instant form submission
+  - Repeated bot-like patterns
+- Disqualify placements with bot detection
 
-**Result:** FCS = 13+ → Tier 2 High Confidence (or Tier 1 with additional signals)
+### 5.2 Frequency Caps
 
-**Without multi-modal verification, this lead would be scored as residential noise.**
+- Apply saturation limits per account
+- Zero rewards for over-exposed accounts
+- Prevent advertiser brand damage from spam
 
----
+### 5.3 Reasoning Consistency Checks
 
-## Reasoning Quality Scoring
+- Cross-reference reasoning with observable evidence
+- Flag fabricated justifications
+- Pattern of weak reasoning → reputation penalty
 
-Validators evaluate miner reasoning traces using:
+### 5.4 Fraud Detection
 
-1. **Consistency checks:** Does the stated relevance actually match the referenced evidence?
-2. **Technographic verification:** Is the target actually using the competitor's product?
-3. **Temporal logic:** Does the timing rationale align with observable events?
-4. **Semantic coherence:** Does the reasoning make logical sense?
-
-Validators use LLMs to assist evaluation but apply human-calibrated scoring rubrics.
-
-### Gaming Detection
-
-| Red Flag | Interpretation |
-|----------|----------------|
-| Generic reasoning copied across placements | Template-based, not researched |
-| Reasoning doesn't match observable evidence | Fabricated justification |
-| Timing rationale contradicts public data | Made up opportunity |
-| Target not verifiable as competitor user | False audience claim |
-
-Miners with consistently weak reasoning receive score penalties and eventual stake slashing.
+| Trigger | Action |
+|---------|--------|
+| Fake traffic / bot clicks | Placement disqualified, stake warning |
+| Fabricated reasoning | Stake penalty, reputation damage |
+| False tier claims | Downgrade tier, score penalty |
+| Repeated violations | Stake slash, potential removal |
 
 ---
 
-## Behavioral Integrity (Honey-Link Protocol)
+## 6. Input/Output Format
 
-Utilizing the **Honey-Link Protocol**, validators analyze telemetry for "Human Signatures." Miners are penalized if traffic shows:
+### 6.1 Input (From Network)
 
-* Zero cursor jitter or perfectly linear scroll velocity
-* Instantaneous "clicks" following a placement (bot-like reaction time)
-* High variance in IP origin but identical User-Agent strings
+| Field | Description |
+|-------|-------------|
+| `Miner_Submission` | Placement proof, telemetry bundle, reasoning trace |
+| `Claimed_Tier` | Miner-claimed tier (1, 2, or 3) |
+| `Brief_Parameters` | Original campaign targets and goals |
 
----
+### 6.2 Output (To Network)
 
-## Evaluation Cadence
-
-To ensure the network remains responsive to audience opportunities, the evaluation follows a dual-track schedule:
-
-### 1. Real-Time Telemetry Processing
-
-As miners route traffic through their redirectors, validators perform asynchronous firmographic checks. This allows for a **Dynamic Kill-Switch** to be triggered immediately if a miner is detected pushing fraudulent or irrelevant traffic.
-
-### 2. Epoch-Based Weight Commitment
-
-Every **360 blocks (approximately 1 hour)**, the validator aggregates the performance data from all active briefs. The final scores are normalized across the miner set and committed to the Subtensor as weight vectors.
-
-### 3. Bounty Settlement
-
-Discovery Bounties (e.g., mapping a new audience segment) are evaluated on a **First-to-Verify** basis. Once a miner submits evidence, validators have a 10-minute window to reach consensus.
-
----
-
-## Validator Incentive Alignment
-
-SignalCast ensures validators are economically driven to be honest, rigorous, and efficient:
-
-### V-Trust & Consensus
-
-Validators earn dividends based on their **V-Trust score**. Consistently scoring miners outside the stake-weighted median results in V-Trust decay and reduced rewards.
-
-### Attribution Accuracy Rebates
-
-A portion of the advertiser's "Distribution Fee" is held in escrow. Validators demonstrating the highest correlation between internal scores and **actual conversion data** reported by the advertiser receive a "Performance Dividend."
-
-### Fraud Detection Bounties
-
-Validators that are the first to identify and provide proof of fraudulent miner behavior are rewarded with a portion of the slashed stake.
-
----
-
-## Decentralized IP Intelligence Layer
-
-SignalCast reduces reliance on centralized IP databases (MaxMind, Clearbit) by building a network-native intelligence layer.
-
-### Miner Contributions
-
-Miners can stake on IP-to-organization mappings:
-
-```json
-{
-  "ip_range": "192.0.2.0/24",
-  "organization": "VoiceFlow AI Inc.",
-  "confidence": 0.85,
-  "evidence": "GitHub commit metadata, LinkedIn job posting",
-  "stake": 0.1
-}
-```
-
-### Validator Cross-Reference
-
-When verifying an engagement:
-1. Query 3+ miner-staked mappings for the IP
-2. Compare against external sources (if available)
-3. Weight by stake amount and historical accuracy
-4. Consensus mapping used for firmographic scoring
-
-### Incentives
-
-* Accurate mappings: stake returned + share of verification fees
-* Inaccurate mappings (contradicted by conversion data): stake slashed
-* Novel mappings (first to identify): discovery bounty
-
-### Privacy Preservation
-
-* IP ranges stored, not individual IPs
-* Organization-level only, no individual identification
-* Mappings expire after 90 days without reconfirmation
-
-Over time, the network builds proprietary corporate network intelligence that no single miner or external vendor controls.
-```
+| Field | Description |
+|-------|-------------|
+| `Verified_Tier` | Confirmed tier after validation |
+| `Reasoning_Score` | 0-20 points |
+| `Reasoning_Bonus` | 0-20% |
+| `Final_Score` | Calculated score |
+| `Validation_Status` | Approved / Downgraded / Disqualified |
