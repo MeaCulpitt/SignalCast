@@ -1,136 +1,173 @@
 # SignalCast: Go-To-Market Strategy
 
-SignalCast utilizes a **Precision-First Market Entry** strategy, focusing on placing content in front of the right audiences for B2B brands. By bridging the gap between the Bittensor protocol and the "Real World" B2B marketing economy, the GTM is built on delivering genuine relevance rather than raw reach.
+---
+
+## 1. Initial Target Users & Use Cases
+
+### 1.1 Anchor Use Cases
+
+| Use Case | Description | Target Users |
+|----------|-------------|--------------|
+| **Subnet Distribution** | Bitcast (SN93) subnet distributing AI-generated video content to verified audiences | Bitcast content creators, AI projects |
+| **Competitor Targeting** | B2B companies reaching decision-makers using competitor products | SaaS companies, B2B startups |
+| **Account-Based Marketing** | Precision targeting of specific companies and decision-makers | Enterprise marketing teams |
+
+### 1.2 Early Adopters
+
+| Segment | Why They'lL Join | Initial Focus |
+|---------|-------------------|---------------|
+| **Bittensor subnets** | Native ecosystem, easy integration | SN93 (Bitcast), other content subnets |
+| **B2B SaaS startups** | Lower CAC, verified results | AI/ML infrastructure, dev tools |
+| **Marketing agencies** | New revenue stream, precision targeting | Performance marketers, ABM specialists |
+
+### 1.3 Pilot Partners
+
+Target 5-10 companies for closed pilot:
+
+- Provide free distribution in exchange for verified conversion data
+- Document case studies with ROI metrics
+- Use feedback to refine mechanism
 
 ---
 
-## Initial Target Users & Use Cases
+## 2. Distribution & Growth Channels
 
-SignalCast will focus on three "Anchor" segments where the pain of wasted ad spend and poor targeting is most acute:
+### 2.1 Bittensor Ecosystem
 
-### 1. Bittensor Native Projects
+| Channel | Strategy |
+|---------|----------|
+| **Subnet integration** | Native integration with SN93 (Bitcast) for content sourcing |
+| **Discord/Telegram** | Engage existing Bittensor community |
+| **Bittensor forums** | Announce launch, recruit miners/validators |
+| **Cross-subnet partnerships** | Partner with other subnets for distribution |
 
-Subnets and dApps within the ecosystem that need to drive actual adoption of their decentralized tools. They will act as **Pilot Partners**, using SignalCast to distribute their creative assets (from SN93) to audiences who currently use centralized alternatives.
+### 2.2 External Channels
 
-**Example use case:** Subnet 64 (Chutes) uses SignalCast to reach developers currently using Replicate. Miners identify these developers via GitHub repos and technical discussions, place SN93-generated explainer videos in Hacker News threads and developer Discords, and drive API signups from people who would genuinely benefit from lower latency and costs.
+| Channel | Strategy |
+|---------|----------|
+| **Twitter/X** | Share success metrics, thought leadership |
+| **LinkedIn** | Target B2B marketers, startup founders |
+| **Product Hunt** | Launch visibility for any consumer-facing components |
+| **Developer communities** | Hacker News, Reddit, Discord servers |
 
-### 2. The "Challenger" B2B SaaS
+### 2.3 Content Marketing
 
-Mid-market SaaS companies (e.g., in CRM, ERP, or Cybersecurity) that are currently spending heavily on LinkedIn Ads with poor targeting. Their primary use case is **Precision Placement** — using SignalCast to place content in front of users of incumbent products who are experiencing limitations or frustrations.
-
-### 3. Web3 Infrastructure Providers
-
-Companies selling RPC nodes, decentralized storage, or ZK-rollups. Their anchor use case is **Audience Discovery**, finding developers and teams currently using centralized providers like AWS or Infura who might benefit from decentralized alternatives.
-
----
-
-## Distribution & Growth Channels
-
-To scale, SignalCast bypasses traditional broad-market channels in favor of high-relevance environments:
-
-### The "Subnet 93" Creative Loop
-
-We will integrate directly into the Bitcast dashboard as the "One-Click Distribution" partner. Every creator on SN93 becomes a natural advocate for SignalCast, as our miners provide the audience reach their content requires.
-
-### Strategic Sales Agencies
-
-Partnering with specialized B2B outbound agencies that manage million-dollar ad budgets. We provide them with a "Performance-Only" distribution tool that guarantees their clients content reaches relevant audiences rather than random impressions.
-
-### Professional Communities
-
-Miners will be incentivized to develop presence in Slack communities, Discord servers, and niche professional forums where target audiences naturally gather.
-
-### Technographic Tools
-
-Releasing a suite of free tools that help companies understand which audiences use which products. These tools act as a "freemium" entry point that leads users into the full SignalCast distribution layer.
+| Content Type | Purpose |
+|--------------|---------|
+| **Case studies** | Prove ROI with pilot data |
+| **Whitepapers** | Educate on precision targeting |
+| **Blog posts** | SEO, thought leadership |
+| **Demo videos** | Show how the mechanism works |
 
 ---
 
-## Incentives for Early Participation
+## 3. Incentives for Early Participation
 
-Bootstrapping a multi-sided network requires front-loading rewards to ensure liquidity of both supply (miners) and demand (advertisers).
+### 3.1 Miner Incentives
 
-### For Miners: The "Discovery" Phase
+| Incentive | Description |
+|-----------|-------------|
+| **Discovery bounties** | 10% of pool for new target discovery |
+| **High rewards early** | Increased emission rates during bootstrap phase |
+| **Reputation building** | First movers build reputation for future rewards |
+| **Low stake requirement** | Only 0.2 TAO to participate |
 
-During the first 6 months, a dedicated portion of subnet emissions will be allocated to "Discovery Bounties." Miners who successfully map audience segments — identifying which companies use which tools, and where those users gather — earn elevated rewards to build the network's targeting intelligence.
+### 3.2 Validator Incentives
 
-### For Validators: The "Integrity Dividend"
+| Incentive | Description |
+|-----------|-------------|
+| **Verification rewards** | Dividends for accurate verification |
+| **Early mover advantage** | Build stake and reputation early |
+| **Yuma Consensus** | Standard Bittensor mechanism |
 
-Early validators who contribute to the "Honey-Link" anti-fraud database will receive a stake-weighted performance bonus. This ensures the verification logic is hardened before the first enterprise-scale budgets arrive.
+### 3.3 Advertiser Incentives
 
-### For Users (Advertisers): The "Pay-on-Conversion" Program
+| Incentive | Description |
+|-----------|-------------|
+| **Pilot pricing** | Discounted rates for early advertisers |
+| **Verified ROI** | Pay only for verified conversions |
+| **Case study inclusion** | Featured in success stories |
+| **Priority brief placement** | Top miners see briefs first |
 
-Early pilot partners will be offered a "Pay-on-Conversion" model. Instead of paying for impressions, they only burn Alpha/TAO when a verified conversion occurs (e.g., an API signup from a confirmed competitor user). This removes the barrier to entry and proves the subnet's value immediately.
+### 3.4 Bootstrapping Strategies
 
----
-
-## Worked Example: Bittensor Subnet as Advertiser
-
-### Scenario: Subnet 64 (Chutes) Reaching Replicate Users
-
-**Goal:** Place content in front of developers who currently use Replicate and would benefit from Chutes.
-
-**Setup:**
-1. Chutes creates SN93 explainer video: "How Chutes Handles Cold Starts Differently"
-2. Validator broadcasts brief with TAL: known Replicate users (from BuiltWith, GitHub imports)
-3. Conversion targets: API signups, docs visits, Discord joins
-
-**Miner Execution:**
-1. Miner identifies YC startup "VoiceFlow AI" as Replicate user via GitHub repo
-2. Notices CTO tweet discussing cold start latency challenges
-3. Places tracked link in active Hacker News thread on inference costs — a place where this audience naturally gathers
-4. Submits reasoning trace documenting audience identification, relevance match, timing, channel selection
-
-**Conversion:**
-1. VoiceFlow CTO clicks from office IP
-2. Watches explainer (3:45)
-3. Signs up for Chutes API with alex@voiceflow.ai
-4. Joins Discord
-
-**Validation:**
-1. Reverse IP confirms VoiceFlow Inc.
-2. VoiceFlow on TAL → 10x Precision Multiplier
-3. API signup → 10x Conversion Weight
-4. Human behavior verified
-5. Reasoning quality: strong → +5% bonus
-
-**Result:** Miner scores 105 points, earns ~6 TAO. Chutes pays ~2 TAO success fee. Content reached someone who genuinely needed to see it.
+| Strategy | Description |
+|----------|-------------|
+| **Closed pilot** | 5-10 partners, verified data, case studies |
+| **Bounty programs** | Reward community for target discovery |
+| **Referral incentives** | Bonus TAO for bringing advertisers/miners |
+| **Hackathons** | Community building, mechanism refinement |
 
 ---
 
-## Privacy & Compliance in GTM
+## 4. Launch Phases
 
-SignalCast's GTM explicitly addresses enterprise compliance concerns:
+### 4.1 Phase 0: Foundation (Weeks 1-4)
 
-* **No PII storage:** Only hashed firmographic data retained
-* **GDPR-compatible:** Operates under legitimate interest for B2B professional context
-* **Advertiser-friendly:** Clear compliance obligations documented for all participants
-* **Audit-ready:** Validators maintain hashed logs for transparency
+- Finalize mechanism design
+- Build core protocol
+- Recruit pilot partners
+- Internal testing
 
-This positions SignalCast as enterprise-ready from day one, removing a key objection for B2B SaaS pilot partners.
+### 4.2 Phase 1: Closed Pilot (Weeks 5-10)
+
+- 5-10 B2B companies as advertisers
+- Limited miner set (invitation-only)
+- Calibrate scoring against real data
+- Publish case studies
+
+### 4.3 Phase 2: Beta (Months 3-4)
+
+- Open miner registration
+- Expand advertiser base
+- Public launch announcements
+- Community building
+
+### 4.4 Phase 3: Public Launch (Month 5+)
+
+- Full public launch
+- Marketing campaigns
+- Exchange listings (if applicable)
+- Scale operations
+
+---
+
+## 5. Success Metrics
+
+### 5.1 Key Metrics
+
+| Metric | Target (Month 6) |
+|--------|-------------------|
+| Active miners | 100+ |
+| Active validators | 20+ |
+| Advertisers | 50+ |
+| Verified conversions | 1,000+ |
+| Average CPA | 50% below traditional |
+
+### 5.2 Growth Metrics
+
+| Metric | Description |
+|--------|-------------|
+| Miner retention | % active after 30/60/90 days |
+| Advertiser LTV | Repeat campaigns per advertiser |
+| Discovery rate | New targets discovered per week |
+| Tier distribution | % Tier 1 vs Tier 2 vs Tier 3 |
 
 ---
 
-## Success Metrics
+## 6. Risk Mitigation
 
-### Phase 1 (Months 1-6)
+### 6.1 Risks
 
-* 10+ Bittensor subnet pilot partners
-* 100+ active miners with verified channel access
-* First external B2B SaaS customer
-* Audience relevance benchmark established vs. LinkedIn/Google
+| Risk | Mitigation |
+|------|------------|
+| Low miner participation | Discovery bounties, low stake requirement |
+| Fake traffic/gaming | Honey-link telemetry, reasoning verification |
+| Advertiser churn | Verified ROI, success-based pricing |
+| Competition | Cross-subnet integration, unique mechanism |
 
-### Phase 2 (Months 6-12)
+### 6.2 Contingencies
 
-* 50+ paying advertisers
-* 1,000+ verified conversions from target audiences
-* Partnership with 2+ B2B sales agencies
-* Positive unit economics on TAO success fees
-
-### Phase 3 (Year 2+)
-
-* SignalCast as default distribution layer for SN93 content
-* External capital inflow from enterprise marketing budgets
-* Self-sustaining emissions via advertiser demand
-
----
+- If Tier 1 conversions low → increase discovery bounties
+- If miner quality low → strengthen reasoning requirements
+- If advertiser interest low → expand use cases, improve messaging
