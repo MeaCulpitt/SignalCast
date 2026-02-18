@@ -12,17 +12,17 @@ The mechanism rewards **precision over volume**, **intelligence over automation*
 
 ## 2. Emission and Reward Logic
 
-Emissions follow a **Precision Targeting** model that prioritizes reaching the right audience over raw reach.
+Emissions follow a **Proportional Scoring** model — rewards distribute based on the quality of targeting and conversion depth.
 
-### 2.1 Audience Tier Multipliers
+### 2.1 Big Fish Multiplier
 
 | Tier | Audience | Multiplier |
 |------|----------|------------|
 | Tier 1 | Verified competitor users (self-reported need or first-party list match) | 10x |
-| Tier 2 | High-fit industry targets (technographic match, not confirmed competitor) | 3x |
-| Tier 3 | General relevant audience (niche community members) | 1x |
+| Tier 2 | High-fit industry targets (technographic match, confirmed competitor usage) | 3x |
+| Tier 3 | General relevant audience (same industry/ICP, unconfirmed) | 1x |
 
-### 2.1.1 Tier Determination and Verification
+### 2.1.1 Tier Determination
 
 Each tier is determined by the **verification method** used to confirm the audience. Miners claim a tier when submitting placement; validators verify or downgrade.
 
@@ -84,21 +84,46 @@ Each tier is determined by the **verification method** used to confirm the audie
 
 ### 2.2 Conversion Depth Multipliers
 
-| Conversion Type | Multiplier |
-|----------------|------------|
-| API signup / Demo request | 10x |
-| Whitepaper download | 5x |
-| Social follow | 3x |
-| Engagement (like/repost) | 1x |
+| Conversion Type | Description | Multiplier |
+|----------------|-------------|------------|
+| API Signup | User registers for API access with work email | 10x |
+| Demo Request | User requests a product demo | 5x |
+| Whitepaper Download | User downloads gated content (case study, research, etc.) | 2x |
+| Social Follow | User follows advertiser's Twitter/X, LinkedIn, Discord | 2x |
+| Engagement | User likes, reposts, or comments on content | 1x |
+
+---
 
 ### 2.3 Final Score Calculation
 
 ```
-Final Score = Base Score × Audience Tier × Conversion Depth × Reasoning Bonus
+Score = Base (1.0) × Big Fish Multiplier × Conversion Multiplier × Reasoning Bonus
 ```
 
-- **Base Score:** 1.0 per placement submission
+- **Base:** 1.0 per placement submission
+- **Big Fish Multiplier:** Tier-based (10x, 3x, or 1x)
+- **Conversion Multiplier:** Based on conversion depth (1x-10x)
 - **Reasoning Bonus:** 0-20% based on validator-scored reasoning quality
+
+---
+
+### 2.4 Proportional Distribution
+
+Emission pool distributes proportionally based on score weights each cycle.
+
+**Example:**
+
+| Miner | Tier | Conversion | Reasoning | Score |
+|-------|------|------------|-----------|-------|
+| A | Tier 1 | API Signup | 10% | 110 |
+| B | Tier 2 | Demo Request | 0% | 15 |
+| C | Tier 3 | Engagement | 0% | 1 |
+| D | Tier 1 | Social Follow | 5% | 21 |
+| E | Tier 1 | API Signup | 15% | 115 |
+
+**Total:** 262 | **Miner A:** 42% of pool | **Miner E:** 44% of pool
+
+The big fish multiplier (10x/3x/1x) already creates natural proportional distribution. No fixed percentages needed.
 
 ---
 
@@ -115,7 +140,28 @@ Advertisers can provide their own target lists, eliminating miner guesswork.
 | **Discovery-Only** | No list provided — miner finds targets | Standard tiered rewards |
 | **Hybrid** | Seed list + miner discovery | Tier 1 for list matches, standard for discovered |
 
-### 3.2 Signal Taxonomy
+### 3.2 Brief Structure
+
+Each campaign brief contains:
+
+| Field | Description |
+|-------|-------------|
+| **Advertiser** | Project/subnet seeking distribution |
+| **Target Audience** | Tier definition (competitor users, industry, ICP) |
+| **Content Asset** | SN93 video, whitepaper, landing page, etc. |
+| **Conversion Goals** | What counts as conversion (signups, demos, downloads) |
+| **Success Fee** | TAO paid by advertiser per verified conversion |
+| **Emitter Reward** | TAO distributed to miner from protocol emissions |
+
+### 3.3 Miner Brief Selection
+
+Miners browse available briefs and choose which to pursue based on:
+
+- **Difficulty:** Higher tiers require more research
+- **Competition:** Fewer miners = higher chance of success
+- **Reward potential:** Tier 1 + deep conversion = maximum payout
+
+### 3.4 Signal Taxonomy
 
 When miners don't have a first-party list, they earn based on signal quality:
 
@@ -142,19 +188,32 @@ Multi-touch sequences are rewarded to prevent "swoop and grab" behavior.
 | Single touchpoint | 1x | Base conversion value |
 | 2-3 touchpoints over 14 days | 1.5x | Demonstrated follow-through |
 | 4+ touchpoints over 30 days | 2x | Full nurture sequence |
-| Multi-stakeholder engagement | 3x | Account penetration |
+| Multi-stakeholder engagement (same company) | 3x | Account penetration |
 
 ### 4.2 Attribution Model (40/40/20)
 
-| Touch | Reward Share |
-|-------|---------------|
-| First touch (awareness) | 40% |
-| Last touch (conversion) | 40% |
-| Highest-engagement touch | 20% |
+When multiple miners touch the same account, rewards are distributed:
 
-- Touches expire after 30 days if no conversion
+| Touch | Reward Share | Description |
+|-------|---------------|-------------|
+| First touch (awareness) | 40% | Initial placement that introduced the solution |
+| Last touch (conversion) | 40% | Placement that directly led to conversion |
+| Highest-engagement touch | 20% | Placement with deepest engagement (time on page, pages visited) |
+
+**Rules:**
+- Touches expire after 30 days if no conversion occurs
 - One miner = one touch per account per campaign (no spam)
 - Real-time leaderboard shows active touches and attributed value
+- If only one touch exists, it receives 80%
+
+### 4.3 Attribution Conflicts
+
+| Scenario | Resolution |
+|----------|------------|
+| Two miners claim first touch | Earliest timestamp wins |
+| Two miners claim last touch | Most recent conversion event wins |
+| Touches < 24 hours apart | Split 50/50, flag for review |
+| Miner appeals attribution | Validator reviews timestamp evidence |
 
 ---
 
@@ -167,40 +226,30 @@ Validators earn dividends by verifying that content reached the intended audienc
 
 ---
 
-## 6. Miner Cold Start
+## 6. Miner Entry
 
-New miners need pathways to earn before building a conversion track record.
+### 6.1 Stake Requirement
 
-### 6.1 Discovery Bounties
+- **0.2 TAO** stake required for all miners
+- No conversion threshold — anyone can participate
+
+### 6.2 Discovery Bounties
 
 Separate pool for identifying targets (not just converting):
 
-| Activity | Reward |
-|----------|--------|
-| Identify a new verified competitor user | 0.1 TAO |
-| Find a target company's decision-maker contact | 0.2 TAO |
-| Discover a new channel where targets gather | 0.5 TAO |
-| First to identify emerging competitor (bonus) | 1.0 TAO |
+| Activity | Reward | Requirements |
+|----------|--------|-------------|
+| Identify a new verified competitor user | 0.1 TAO | Company name, domain, competitor used, source URL |
+| Find a target company's decision-maker contact | 0.2 TAO | Name, role, LinkedIn/email, company verification |
+| Discover a new channel where targets gather | 0.5 TAO | Platform, community URL, member count estimate, relevance justification |
+| First to identify emerging competitor (bonus) | 1.0 TAO | New competitor not yet in system, evidence of product/market fit |
 
-### 6.2 Tiered Brief Access
+**Note:** If discovery bounties are unclaimed in a cycle, they roll back into the main emission pool proportionally.
 
-| Tier | Conversions | Access | Staking Required |
-|------|-------------|--------|------------------|
-| Bronze | 0-9 | Learning briefs (practice) | 100 TAO |
-| Silver | 10-49 | Premium briefs | 500 TAO |
-| Gold | 50-199 | VIP campaigns | 2,000 TAO |
-| Platinum | 200+ | Private auctions | 10,000 TAO |
+### 6.3 Sandbox Mode
 
-### 6.3 Mentorship Program
-
-- Experienced miners can mentor new participants
-- Mentor receives 5% of mentee's earnings for 30 days
-- Mentee gets accelerated reputation during probation
-
-### 6.4 Sandbox Mode
-
-- New miners practice on test briefs with validator-controlled fake accounts
-- "Practice reputation" converts to real stake after 30 days
+- New miners practice on test briefs with validator-controlled scenarios
+- No stake required in sandbox
 
 ---
 
@@ -208,24 +257,24 @@ Separate pool for identifying targets (not just converting):
 
 SignalCast qualifies as a Proof of Intelligence subnet by requiring complex, non-algorithmic research.
 
-### 7.1 Why This Qualifies
+### 7.1 Why This Qualifies as Proof of Intelligence
 
-| Requirement | Implementation |
-|-------------|----------------|
-| Non-trivial task | Audience research requires investigation, reasoning, judgment |
-| Verifiable output | Reasoning traces can be checked against evidence |
-| Resistance to gaming | Fabricated reasoning fails consistency checks |
-| Economic alignment | Rewards scale with targeting accuracy, not volume |
-| Skill differentiation | Miners with better research consistently outperform |
+| Requirement | SignalCast Implementation |
+|-------------|--------------------------|
+| **Non-trivial task** | Audience research requires investigation, reasoning, and judgment — cannot be computed from data alone |
+| **Verifiable output** | Reasoning traces can be checked against evidence; signal sources must be cited and verified |
+| **Resistance to gaming** | Fabricated reasoning fails consistency checks; volume without quality is penalized |
+| **Economic alignment** | Rewards scale with targeting accuracy, not placement volume |
+| **Skill differentiation** | Miners with better research capabilities consistently outperform |
 
 ### 7.2 Intelligence Hierarchy
 
 | Level | Description | Reward |
 |-------|-------------|--------|
-| Level 1 | Channel access — presence in professional communities | Base |
-| Level 2 | Strategic matching — asset to verified audience with reasoning | +20% |
-| Level 3 | Signal detection — identify needs from noisy data | +50% |
-| Level 4 | Audience prediction — anticipate readiness before explicit signals | +100% |
+| Level 1 | Channel access — developing presence in professional communities where target audiences gather | Base reward |
+| Level 2 | Strategic matching — connecting assets to verified audiences with coherent reasoning | +20% |
+| Level 3 | Signal detection — identifying audience needs and pain points from noisy data | +50% |
+| Level 4 | Audience prediction — anticipating which users are ready for alternatives before explicit signals appear | +100% |
 
 ### 7.3 Reasoning Trace Format
 
@@ -240,8 +289,8 @@ Miners submit structured reasoning with each placement:
     "signal_evidence": "URL or data source",
     "audience_identification": "Company identified as [X] user via [source]",
     "relevance_match": "Asset addresses [specific pain point]",
-    "timing_rationale": "Active thread on [topic], high visibility",
-    "channel_selection": "Technical audience, [platform], [reason]"
+    "timing_rationale": "Active thread on [topic], high visibility window",
+    "channel_selection": "Technical audience, [platform], [reason for fit]"
   }
 }
 ```
@@ -250,12 +299,12 @@ Miners submit structured reasoning with each placement:
 
 Validators score each submission on 4 dimensions (0-5 scale each):
 
-| Dimension | What It Measures |
-|-----------|------------------|
-| Signal Source Quality | How credible is the targeting signal? |
-| Audience Identification | Is the company correctly identified as a target? |
-| Relevance Match | Does the content actually address the identified need? |
-| Channel Selection | Is this the right platform/context for this audience? |
+| Dimension | What It Measures | Scoring Criteria |
+|-----------|------------------|------------------|
+| **Signal Source Quality** | How credible is the targeting signal? | 0 = no source, 5 = verified first-party data |
+| **Audience Identification** | Is the company correctly identified as a target? | 0 = wrong company, 5 = verified domain + role |
+| **Relevance Match** | Does the content actually address the identified need? | 0 = irrelevant, 5 = perfect alignment |
+| **Channel Selection** | Is this the right platform/context for this audience? | 0 = wrong platform, 5 = optimal fit |
 
 - Each dimension: 0-5 score
 - Total: 0-20 points → 0-20% bonus applied to final score
@@ -274,43 +323,35 @@ Validators score each submission on 4 dimensions (0-5 scale each):
 
 ### 8.1 Stake-at-Risk
 
-- Miners stake TAO to participate in premium briefs
+- All miners stake 0.2 TAO to participate
 - Fraudulent or irrelevant traffic → stake burned
+- Reasoning fraud → stake burned + reputation damage
 
 ### 8.2 Honey-Link Telemetry
 
-- Validators wrap links in invisible telemetry
-- Non-human behavior (linear scroll, no cursor variance) → disqualification
+- Validators wrap distributed links in invisible telemetry layers
+- Non-human behavior detected → placement disqualified from Tier 1 payout
+- Detection triggers:
+  - Linear scroll velocity
+  - No cursor movement
+  - Instant form submission
+  - Repeated bot-like patterns
 
 ### 8.3 Frequency Caps
 
 - Validators apply saturation limits per account
-- Over-exposed accounts → rewards zeroed for that account
+- If a miner over-exposes a target account, rewards for that account are zeroed
 
 ### 8.4 Reasoning Consistency Checks
 
 - Fabricated reasoning fails cross-reference validation
+- Validator flags submissions where reasoning doesn't match evidence
 - Pattern of low-quality reasoning → reputation penalty
 
 ---
 
-## 9. Content Source Flexibility
+## 9. Emission Summary
 
-SignalCast is content-source agnostic.
-
-| Source | Asset Type | Status |
-|--------|------------|--------|
-| SN93 (Bitcast) | AI-generated video | Primary |
-| Advertiser-provided | Whitepapers, landing pages | Supported |
-| Other Bittensor subnets | SN17 (3D), SN59 (audio), future | Extensible |
-
----
-
-## 10. Emission Summary
-
-| Pool | Allocation |
-|------|------------|
-| Verified conversions (Tier 1) | 55% |
-| High-fit targets (Tier 2) | 30% |
-| Discovery & general (Tier 3) | 10% |
-| Discovery bounties (new targets) | 5% |
+- **Proportional distribution** based on score weights each cycle
+- **Discovery bounties:** 10% of pool (if unclaimed, rolls back into main pool proportionally)
+- The big fish multiplier (10x/3x/1x) and conversion multipliers already create natural proportional distribution
