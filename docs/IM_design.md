@@ -62,13 +62,13 @@ Each tier is determined by the **verification method** used to confirm the audie
 **Verification Methods:**
 - **Contextual match:** Company in same industry/vertical, fits Ideal Customer Profile (ICP)
   - Source: Company website, LinkedIn, Crunchbase
-  - ICP criteria: industry, company size, geography, role of decision-maker
+  - ICP criteria: industry, company size, role of decision-maker
 - **Community membership:** Active in relevant communities (niche Discord, Slack, forums)
   - Source: Community membership verification, activity logs
 
 **Required Evidence:**
 - Company profile showing industry/vertical alignment
-- ICP fit justification (size, geography, use case)
+- ICP fit justification (size, role)
 - No direct competitor usage confirmed
 
 #### Tier 4: Low-Confidence / Inferred (0.1x)
