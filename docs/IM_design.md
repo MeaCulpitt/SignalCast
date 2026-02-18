@@ -23,6 +23,80 @@ Emissions follow a **Precision Targeting** model that prioritizes reaching the r
 | Tier 3 | General relevant audience (niche community members) | 1x |
 | Tier 4 | Low-confidence / residential / inferred only | 0.1x |
 
+### 2.1.1 Tier Determination and Verification
+
+Each tier is determined by the **verification method** used to confirm the audience. Miners claim a tier when submitting placement; validators verify or downgrade.
+
+#### Tier 1: Verified Competitor Users (10x)
+
+**Verification Methods:**
+- **Self-reported need:** User explicitly stated a need or pain point (e.g., "Looking for Replicate alternatives," "Cold starts are killing us")
+  - Source: Social media, forums, support tickets, review sites
+  - Must include company identification and specific need expressed
+- **First-party list match:** Advertiser provided company on their target list
+  - Source: Advertiser-uploaded account list
+  - Automatic Tier 1 if conversion occurs from listed company
+
+**Required Evidence:**
+- URL or transcript of self-reported need
+- Company name and verified domain
+- Clear link between stated need and advertised solution
+
+#### Tier 2: High-Fit Industry Targets (3x)
+
+**Verification Methods:**
+- **Technographic data:** Evidence company uses competitor product
+  - Source: BuiltWith, Clearbit, GitHub (imports, dependencies), StackShare, SimilarTech
+  - Must show active/in recent usage (not abandoned projects)
+- **Job postings:** Company hiring for roles indicating scale (e.g., ML Engineer, DevOps at scale)
+  - Source: LinkedIn, job boards
+  - Must correlate with advertised product category
+
+**Required Evidence:**
+- Data source URL or API response showing product usage
+- Timestamp within last 90 days
+- Company verification (domain matches)
+
+#### Tier 3: General Relevant Audience (1x)
+
+**Verification Methods:**
+- **Contextual match:** Company in same industry/vertical, fits Ideal Customer Profile (ICP)
+  - Source: Company website, LinkedIn, Crunchbase
+  - ICP criteria: industry, company size, geography, role of decision-maker
+- **Community membership:** Active in relevant communities (niche Discord, Slack, forums)
+  - Source: Community membership verification, activity logs
+
+**Required Evidence:**
+- Company profile showing industry/vertical alignment
+- ICP fit justification (size, geography, use case)
+- No direct competitor usage confirmed
+
+#### Tier 4: Low-Confidence / Inferred (0.1x)
+
+**Verification Methods:**
+- **Reverse-IP only:** IP address mapped to company via WHOIS or IP database
+  - Source: IP geolocation, WHOIS lookup
+  - No additional confirmation
+- **Residential IP flag:** IP resolves to residential ISP (remote worker or false positive)
+  - Source: IP reputation database
+
+**Required Evidence:**
+- IP-to-company mapping (even if weak)
+- Flag for residential/unverified IP
+
+### 2.1.2 Verification Flow
+
+1. **Miner submits placement** with reasoning trace including claimed tier
+2. **Validator verifies** the signal source exists:
+   - Tier 1: Check self-reported signal or first-party list match
+   - Tier 2: Pull technographic data to confirm competitor usage
+   - Tier 3: Verify industry/ICP fit
+   - Tier 4: Reverse-IP lookup only
+3. **Tier confirmed or downgraded** — validator may lower tier if evidence is weak
+4. **Dispute possible** — miner can appeal with additional evidence
+
+---
+
 ### 2.2 Conversion Depth Multipliers
 
 | Conversion Type | Multiplier |
