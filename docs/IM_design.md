@@ -21,7 +21,6 @@ Emissions follow a **Precision Targeting** model that prioritizes reaching the r
 | Tier 1 | Verified competitor users (self-reported need or first-party list match) | 10x |
 | Tier 2 | High-fit industry targets (technographic match, not confirmed competitor) | 3x |
 | Tier 3 | General relevant audience (niche community members) | 1x |
-| Tier 4 | Low-confidence / residential / inferred only | 0.1x |
 
 ### 2.1.1 Tier Determination and Verification
 
@@ -71,19 +70,6 @@ Each tier is determined by the **verification method** used to confirm the audie
 - ICP fit justification (size, role)
 - No direct competitor usage confirmed
 
-#### Tier 4: Low-Confidence / Inferred (0.1x)
-
-**Verification Methods:**
-- **Reverse-IP only:** IP address mapped to company via WHOIS or IP database
-  - Source: IP geolocation, WHOIS lookup
-  - No additional confirmation
-- **Residential IP flag:** IP resolves to residential ISP (remote worker or false positive)
-  - Source: IP reputation database
-
-**Required Evidence:**
-- IP-to-company mapping (even if weak)
-- Flag for residential/unverified IP
-
 ### 2.1.2 Verification Flow
 
 1. **Miner submits placement** with reasoning trace including claimed tier
@@ -91,7 +77,6 @@ Each tier is determined by the **verification method** used to confirm the audie
    - Tier 1: Check self-reported signal or first-party list match
    - Tier 2: Pull technographic data to confirm competitor usage
    - Tier 3: Verify industry/ICP fit
-   - Tier 4: Reverse-IP lookup only
 3. **Tier confirmed or downgraded** — validator may lower tier if evidence is weak
 4. **Dispute possible** — miner can appeal with additional evidence
 
@@ -325,7 +310,7 @@ SignalCast is content-source agnostic.
 
 | Pool | Allocation |
 |------|------------|
-| Verified conversions (Tier 1) | 50% |
+| Verified conversions (Tier 1) | 55% |
 | High-fit targets (Tier 2) | 30% |
-| Discovery & general (Tier 3) | 15% |
+| Discovery & general (Tier 3) | 10% |
 | Discovery bounties (new targets) | 5% |
