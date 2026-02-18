@@ -1,149 +1,383 @@
 # SignalCast: Business Logic & Market Rationale
 
-SignalCast is not merely a distribution tool; it is a **Precision Audience Engine**. By decentralizing the logic of audience targeting, it provides a high-ROI alternative to the inefficient "spray and pray" models of traditional digital advertising.
+---
+
+## 1. The Problem
+
+### 1.1 B2B Advertising Waste
+
+Most B2B advertising is ineffective:
+
+- **Random audiences:** Content reaches people who don't need the product
+- **Rising CAC:** Cost per acquisition keeps increasing
+- **Ad blindness:** Decision-makers ignore generic ads
+- **No verification:** Impossible to know if content reached real prospects
+
+### 1.2 The Core Problem
+
+Companies struggle to reach decision-makers who:
+
+- Currently use competitor products
+- Have the exact problem the product solves
+- Are actively evaluating alternatives
+
+Traditional ad networks optimize for impressions, not relevance.
+
+### 1.3 Why It Matters
+
+- Companies waste budget on irrelevant audiences
+- Decision-makers miss solutions they'd genuinely benefit from
+- The gap between content creation and actual conversion is massive
+- No existing mechanism to connect AI-generated content with verified buyers
 
 ---
 
-## The Problem the Subnet Aims to Solve and Why It Matters
+## 2. Competing Solutions
 
-In B2B marketing, the primary challenge is not a lack of content, but a **lack of precision**. Brands spend millions on broad social reach, yet **96% of consumers do not trust what they see in ads**. The "noise" of modern marketing has led to:
+### 2.1 Within Bittensor Ecosystem
 
-* **Skyrocketing CAC:** Customer Acquisition Costs have risen steadily, making traditional paid channels unsustainable for many mid-market firms.
-* **Poor Attribution:** Proving marketing ROI remains complex due to multi-touch journeys and siloed data.
-* **The Trust Gap:** Decision-makers are bombarded with irrelevant communications, leading to "ad blindness" and professional fatigue.
+| Solution | Description | Limitation |
+|----------|-------------|------------|
+| Subnet 93 (Bitcast) | AI-generated video content | Creates content but doesn't distribute to verified audiences |
+| Other advertising subnets | General ad networks on Bittensor | Lack precision targeting and verification |
 
-**Why it matters:** The fundamental problem is that most advertising reaches the wrong people. SignalCast solves this by ensuring content reaches users who would actually benefit from it — people currently using competitor products who have the exact problem your product solves.
+**SignalCast Differentiation:** Precision distribution layer that verifies audience relevance and converts content into verified business outcomes.
 
----
+### 2.2 Outside Bittensor Ecosystem
 
-## Privacy & Compliance Framework
+| Solution | Description | Limitation |
+|----------|-------------|------------|
+| Google Ads | Keyword-based targeting | Broad reach, low precision for B2B |
+| LinkedIn Ads | Professional targeting | Expensive, still includes irrelevant audiences |
+| Programmatic advertising | Automated ad buying | No verification of actual decision-maker reach |
+| Account-based marketing (ABM) | Manual targeting | High cost, slow, not scalable |
 
-SignalCast operates in the B2B marketing intelligence space, processing firmographic data to identify and reach corporate decision-makers. The protocol is designed with privacy-by-design principles.
+**SignalCast Differentiation:** Decentralized, cryptoeconomic incentives for precision targeting with verifiable outcomes.
 
-### Regulatory Acknowledgment
+### 2.3 Gap in Market
 
-| Regulation | Jurisdiction | Key Requirements |
-|------------|--------------|------------------|
-| **GDPR** | EU/EEA | Lawful basis, data minimization, right to erasure |
-| **CCPA/CPRA** | California | Opt-out rights, disclosure requirements |
-| **ePrivacy Directive** | EU | Cookie consent, electronic communications |
-| **CAN-SPAM** | United States | Commercial email requirements |
+No existing solution combines:
 
-### What SignalCast Processes
+- AI-generated content (from Bitcast)
+- Precision audience targeting
+- Verified conversion tracking
+- Decentralized, cryptoeconomic incentive structure
 
-| Data Type | Storage | Purpose |
-|-----------|---------|---------|
-| IP Address | Hashed only | Firmographic attribution |
-| ASN/Org Name | Aggregated | Audience verification |
-| Behavioral Signals | Ephemeral | Bot detection |
-| Conversion Data | Hashed | Lead qualification |
-
-### What SignalCast Does NOT Process
-
-* Personal names (unless voluntarily submitted via form)
-* Personal email addresses (only domain extracted and hashed)
-* Browsing history beyond the single session
-* Cross-site tracking or persistent identifiers
-* Sensitive categories (health, political views, etc.)
-
-### Privacy-by-Design Principles
-
-1. **Data Minimization:** Raw IP → Reverse Lookup → Org Name + ASN → Hash → Discard Raw IP. No raw IPs stored beyond validation window (~1 hour).
-
-2. **Aggregation Over Identification:** SignalCast targets **organizations**, not individuals. The goal is to verify "this click came from a Replicate user" — not to identify the specific person.
-
-3. **First-Party Consent at Conversion:** When a user signs up for an API or submits a demo request, they provide work email and consent voluntarily.
-
-4. **No Persistent Tracking:** No cookies, no browser fingerprinting, no persistent user profiles. Each session evaluated independently.
-
-### Lawful Basis (GDPR)
-
-B2B marketing to corporate decision-makers in their professional capacity is recognized as a **legitimate interest** under GDPR Article 6(1)(f), provided:
-* Processing is necessary to ensure content relevance
-* Processing is limited to professional context; no sensitive data involved
-* Data minimization, hashing, and short retention periods protect individual rights
-
-### Compliance Obligations
-
-**Miners must:**
-* Not store raw telemetry beyond submission window
-* Not attempt to de-anonymize hashed data
-* Not sell or transfer telemetry to third parties
-
-**Validators must:**
-* Verify firmographic data only against authorized registries
-* Discard raw data after epoch validation
-* Maintain audit logs of data handling (hashed, not raw)
-
-**Advertisers must:**
-* Maintain compliant landing pages with clear privacy policies
-* Obtain proper consent for lead follow-up
-* Honor opt-out and erasure requests
+SignalCast fills this gap.
 
 ---
 
-## Competing Solutions
+## 3. Why This Use Case Is Well-Suited to Bittensor
 
-### Within the Bittensor Ecosystem
+### 3.1 Aligned Incentives
 
-* **Subnet 93 (Bitcast):** While SignalCast leverages SN93, the two are distinct. Bitcast focuses on the **creation** of content; SignalCast focuses on placing that content in front of the **right audience**.
-* **Subnet 71 (Leadpoet):** Leadpoet utilizes AI agents to find and qualify leads. SignalCast differs by acting as the **delivery vehicle** that places content in front of those leads, rather than just identifying them.
+- **Miners** are incentivized to find precision audiences (not random clicks)
+- **Validators** are incentivized to verify accurately (Yuma Consensus)
+- **Advertisers** only pay for verified conversions
+- **No central ad network required** — cryptoeconomic mechanism replaces middleman
 
-### Outside of Bittensor
+### 3.2 Proof of Intelligence Fit
 
-* **Traditional ABM Platforms (Terminus, 6sense):** These are centralized, expensive SaaS tools that rely on proprietary data silos. SignalCast provides a **decentralized alternative** where a global network of miners competes to find audience placements that centralized algorithms often miss.
-* **Google/Meta Ads:** These platforms prioritize their own ad revenue over advertiser ROI. SignalCast aligns incentives so that miners only earn when content reaches **verified relevant audiences**.
+SignalCast requires complex, non-algorithmic research:
 
----
+- Cannot be solved by compute alone
+- Requires human-like reasoning and judgment
+- Verifiable through reasoning traces
+- Economic alignment ensures quality
 
-## Why This Use Case is Well-Suited to a Bittensor Subnet
+### 3.3 Network Effects
 
-Bittensor is the only infrastructure capable of incentivizing **Audience Research** at scale.
-
-* **Proof of Intelligence:** Identifying which companies use which tools, and finding where those users gather online, is a task requiring research and reasoning—perfect for Bittensor's competitive miner/validator architecture.
-* **Incentive Alignment:** By using **Yuma Consensus**, SignalCast can reward the *relevance* of an audience over the *quantity* of impressions. This is impossible in centralized ad networks where the platform is incentivized to maximize volume.
-* **Global Scale:** A decentralized network of miners can find and access niche industry forums, gated communities, and specialized channels that no centralized crawler can reach.
-
----
-
-## Content Source Flexibility
-
-SignalCast's core value proposition—**precision distribution to the right audience**—does not depend on any single content source.
-
-### Supported Asset Types
-
-| Source | Asset Type | Integration Status |
-|--------|------------|-------------------|
-| **SN93 (Bitcast)** | AI-generated video | Primary (native) |
-| **Advertiser-provided** | Whitepapers, case studies, landing pages | Supported |
-| **Other Bittensor subnets** | SN17 (3D), SN59 (audio), future content subnets | Planned |
-| **External CDNs** | Any URL-addressable content | Supported |
-
-### SN93 Integration Advantages
-
-When content originates from SN93, additional features are available:
-* **On-chain attribution:** Bitcast creators receive attribution credits when their content converts
-* **Quality signals:** SN93's internal scoring can inform SignalCast's asset selection
-* **Unified analytics:** Cross-subnet dashboards showing creation → distribution → conversion
-
-These are **bonuses**, not requirements. SignalCast is **SN93-compatible, not SN93-dependent**.
+- More miners → better audience coverage → more advertisers → higher rewards → more miners
+- Discovery bounties build target database organically
+- Cross-subnet synergy with Bitcast creates ecosystem value
 
 ---
 
-## Path to Long-term Adoption and Sustainable Business
+## 4. Path to Long-Term Adoption
 
-The path to sustainability for SignalCast lies in **becoming the default distribution layer** for B2B content.
+### 4.1 Phase 1: Pilot (Weeks 1-6)
 
-### Phase 1: Precision Targeting
+- Partner with 5-10 B2B tech companies
+- Provide Target Account Lists and conversion tracking
+- Miners compete on known-good accounts
+- Publish verified ROI metrics
 
-Advertisers use SignalCast to place content in front of verified competitor users — people most likely to benefit from alternatives.
+### 4.2 Phase 2: Growth (Months 2-6)
 
-### Phase 2: The Lead-Gen Ecosystem
+- Open miner registration
+- Expand advertiser base
+- Build reputation system
+- Increase emission rewards
 
-As validators improve at verifying audience relevance, SignalCast becomes a primary source for high-intent B2B leads, potentially charging a **Success Fee** (denominated in TAO) for every verified conversion.
+### 4.3 Phase 3: Scale (Months 6+)
 
-### Phase 3: Sustainable Revenue
+- Cross-subnet integration (Bitcast, other content sources)
+- Enterprise adoption
+- International expansion
+- API for third-party integrations
 
-By proving higher **relevance per impression** than LinkedIn or Google, SignalCast attracts external capital into the Bittensor ecosystem. Advertisers pay to have their SN93 assets reach the right audiences, creating non-inflationary demand for the subnet's Alpha token.
+### 4.4 Sustainable Business Model
+
+- **Protocol emissions:** Core incentive mechanism
+- **Success fees:** Advertisers pay TAO per verified conversion
+- **Premium briefs:** Higher-value campaigns with higher fees
+- **Data services:** Aggregated audience insights (optional)
 
 ---
+
+## 5. Target Users
+
+### 5.1 Advertisers
+
+| User | Use Case |
+|------|----------|
+| Bittensor subnets | Distribute AI-generated content to competitor users |
+| B2B SaaS companies | Reach decision-makers using competitors |
+| Enterprise companies | ABM-style targeting at scale |
+
+### 5.2 Miners
+
+| User | Use Case |
+|------|----------|
+| Marketing agencies | Offer precision distribution as a service |
+| Independent researchers | Earn TAO for audience research |
+| Communities | Monetize audience access |
+
+### 5.3 Validators
+
+| User | Use Case |
+|------|----------|
+| Infrastructure providers | Verify audience relevance at scale |
+| Data providers | Contribute technographic verification |
+
+---
+
+## 6. Value Creation
+
+### 6.1 For Advertisers
+
+- Lower CAC through precision targeting
+- Verified conversions (only pay for results)
+- Access to verified competitor user data
+
+### 6.2 For Miners
+
+- Earn TAO for meaningful research work
+- Skill-based earning (research quality > volume)
+- Discovery bounty income stream
+
+### 6.3 For the Ecosystem
+
+- Bridges content creation (Bitcast) with distribution
+- Creates feedback loop for better AI content
+- Enables B2B marketing on decentralized infrastructure
+
+### 6.4 For Decision-Makers
+
+- Discover solutions they'd genuinely benefit from
+- Not subjected to random, irrelevant ads
+- Professional, contextually relevant content
+
+---
+
+## 7. Competitive Advantage
+
+| Advantage | Description |
+|-----------|-------------|
+| **Precision** | 10x multiplier for verified competitor users |
+| **Verification** | Multi-layer audience confirmation |
+| **Incentive Alignment** | Cryptoeconomic rewards for quality |
+| **Decentralized** | No central ad network required |
+| **Cross-Subnet** | Leverages Bitcast content natively |
+| **Proof of Intelligence** | Requires genuine research, not compute |# SignalCast: Business Logic & Market Rationale
+
+---
+
+## 1. The Problem
+
+### 1.1 B2B Advertising Waste
+
+Most B2B advertising is ineffective:
+
+- **Random audiences:** Content reaches people who don't need the product
+- **Rising CAC:** Cost per acquisition keeps increasing
+- **Ad blindness:** Decision-makers ignore generic ads
+- **No verification:** Impossible to know if content reached real prospects
+
+### 1.2 The Core Problem
+
+Companies struggle to reach decision-makers who:
+
+- Currently use competitor products
+- Have the exact problem the product solves
+- Are actively evaluating alternatives
+
+Traditional ad networks optimize for impressions, not relevance.
+
+### 1.3 Why It Matters
+
+- Companies waste budget on irrelevant audiences
+- Decision-makers miss solutions they'd genuinely benefit from
+- The gap between content creation and actual conversion is massive
+- No existing mechanism to connect AI-generated content with verified buyers
+
+---
+
+## 2. Competing Solutions
+
+### 2.1 Within Bittensor Ecosystem
+
+| Solution | Description | Limitation |
+|----------|-------------|------------|
+| Subnet 93 (Bitcast) | AI-generated video content | Creates content but doesn't distribute to verified audiences |
+| Other advertising subnets | General ad networks on Bittensor | Lack precision targeting and verification |
+
+**SignalCast Differentiation:** Precision distribution layer that verifies audience relevance and converts content into verified business outcomes.
+
+### 2.2 Outside Bittensor Ecosystem
+
+| Solution | Description | Limitation |
+|----------|-------------|------------|
+| Google Ads | Keyword-based targeting | Broad reach, low precision for B2B |
+| LinkedIn Ads | Professional targeting | Expensive, still includes irrelevant audiences |
+| Programmatic advertising | Automated ad buying | No verification of actual decision-maker reach |
+| Account-based marketing (ABM) | Manual targeting | High cost, slow, not scalable |
+
+**SignalCast Differentiation:** Decentralized, cryptoeconomic incentives for precision targeting with verifiable outcomes.
+
+### 2.3 Gap in Market
+
+No existing solution combines:
+
+- AI-generated content (from Bitcast)
+- Precision audience targeting
+- Verified conversion tracking
+- Decentralized, cryptoeconomic incentive structure
+
+SignalCast fills this gap.
+
+---
+
+## 3. Why This Use Case Is Well-Suited to Bittensor
+
+### 3.1 Aligned Incentives
+
+- **Miners** are incentivized to find precision audiences (not random clicks)
+- **Validators** are incentivized to verify accurately (Yuma Consensus)
+- **Advertisers** only pay for verified conversions
+- **No central ad network required** — cryptoeconomic mechanism replaces middleman
+
+### 3.2 Proof of Intelligence Fit
+
+SignalCast requires complex, non-algorithmic research:
+
+- Cannot be solved by compute alone
+- Requires human-like reasoning and judgment
+- Verifiable through reasoning traces
+- Economic alignment ensures quality
+
+### 3.3 Network Effects
+
+- More miners → better audience coverage → more advertisers → higher rewards → more miners
+- Discovery bounties build target database organically
+- Cross-subnet synergy with Bitcast creates ecosystem value
+
+---
+
+## 4. Path to Long-Term Adoption
+
+### 4.1 Phase 1: Pilot (Weeks 1-6)
+
+- Partner with 5-10 B2B tech companies
+- Provide Target Account Lists and conversion tracking
+- Miners compete on known-good accounts
+- Publish verified ROI metrics
+
+### 4.2 Phase 2: Growth (Months 2-6)
+
+- Open miner registration
+- Expand advertiser base
+- Build reputation system
+- Increase emission rewards
+
+### 4.3 Phase 3: Scale (Months 6+)
+
+- Cross-subnet integration (Bitcast, other content sources)
+- Enterprise adoption
+- International expansion
+- API for third-party integrations
+
+### 4.4 Sustainable Business Model
+
+- **Protocol emissions:** Core incentive mechanism
+- **Success fees:** Advertisers pay TAO per verified conversion
+- **Premium briefs:** Higher-value campaigns with higher fees
+- **Data services:** Aggregated audience insights (optional)
+
+---
+
+## 5. Target Users
+
+### 5.1 Advertisers
+
+| User | Use Case |
+|------|----------|
+| Bittensor subnets | Distribute AI-generated content to competitor users |
+| B2B SaaS companies | Reach decision-makers using competitors |
+| Enterprise companies | ABM-style targeting at scale |
+
+### 5.2 Miners
+
+| User | Use Case |
+|------|----------|
+| Marketing agencies | Offer precision distribution as a service |
+| Independent researchers | Earn TAO for audience research |
+| Communities | Monetize audience access |
+
+### 5.3 Validators
+
+| User | Use Case |
+|------|----------|
+| Infrastructure providers | Verify audience relevance at scale |
+| Data providers | Contribute technographic verification |
+
+---
+
+## 6. Value Creation
+
+### 6.1 For Advertisers
+
+- Lower CAC through precision targeting
+- Verified conversions (only pay for results)
+- Access to verified competitor user data
+
+### 6.2 For Miners
+
+- Earn TAO for meaningful research work
+- Skill-based earning (research quality > volume)
+- Discovery bounty income stream
+
+### 6.3 For the Ecosystem
+
+- Bridges content creation (Bitcast) with distribution
+- Creates feedback loop for better AI content
+- Enables B2B marketing on decentralized infrastructure
+
+### 6.4 For Decision-Makers
+
+- Discover solutions they'd genuinely benefit from
+- Not subjected to random, irrelevant ads
+- Professional, contextually relevant content
+
+---
+
+## 7. Competitive Advantage
+
+| Advantage | Description |
+|-----------|-------------|
+| **Precision** | 10x multiplier for verified competitor users |
+| **Verification** | Multi-layer audience confirmation |
+| **Incentive Alignment** | Cryptoeconomic rewards for quality |
+| **Decentralized** | No central ad network required |
+| **Cross-Subnet** | Leverages Bitcast content natively |
+| **Proof of Intelligence** | Requires genuine research, not compute |
