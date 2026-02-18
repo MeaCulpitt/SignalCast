@@ -1,158 +1,315 @@
-# SignalCast: Miner Architecture & Operations
-
-The SignalCast miner is a decentralized **Audience Research & Distribution Node**. Unlike traditional ad networks that blast content at random audiences, a SignalCast miner must operate as a precision placement agent—identifying which users currently rely on competitor products and placing relevant content where those decision-makers will see it.
+# SignalCast: Miner Design
 
 ---
 
-## Miner Tasks
+## 1. Miner Tasks
 
-A SignalCast miner performs a continuous four-stage cycle that requires both computational effort and strategic reasoning:
+### 1.1 Asset Scouting
 
-### 1. Asset Scouting (Creative Intelligence)
+- Monitor Subnet 93 (Bitcast) for high-performing creative assets
+- Use LLMs to analyze asset transcripts and metadata for "Audience Fit" to specific briefs
 
-* The miner monitors the Subnet 93 (Bitcast) metagraph to identify high-performing creative assets.
-* Miners use LLMs to analyze asset transcripts and metadata to determine "Audience Fit" for specific briefs (e.g., matching a technical video about inference costs to developers using legacy providers).
+### 1.2 Audience Research
 
-### 2. Audience Research (Targeting)
+- Research the open web to identify which companies use which tools
+  - Sources: BuiltWith, Clearbit, GitHub repos, job postings, public case studies
+- Identify specific channels where target audiences gather
+  - Channels: Specialized forums, Discord servers, industry newsletters, X.com threads
 
-* Miners research the open web to identify which companies use which tools (via BuiltWith, GitHub repos, job postings, public case studies).
-* They identify specific channels where target audiences gather — specialized forums, Discord servers, industry newsletters, and active X.com threads.
-* The goal: understand who would genuinely benefit from seeing the advertised content.
+### 1.3 Precision Placement
 
-### 3. Precision Placement (The Interest Pipeline)
+- Generate unique tracking signature for each placement
+- Place content where the right audience will see it
+- Drive users toward "Lead Magnets": Whitepapers, Demos, API Signups
 
-* Miners generate a unique tracking signature and place the SN93 asset where the right audience will see it.
-* Miners are incentivized to bridge the gap between content and the people who need it by driving users toward "Lead Magnets" such as Whitepapers, Demos, and API signups.
+### 1.4 Telemetry Maintenance
 
-### 4. Telemetry Maintenance (Verification)
-
-* Miners host a lightweight redirect proxy that captures initial visitor telemetry (IP/User-Agent) before routing to the Bitcast asset or landing page.
-* This telemetry is hashed and submitted to validators as a "Proof of Audience" to verify that content reached the intended users.
+- Host lightweight redirect proxy capturing initial visitor telemetry (IP, User-Agent)
+- Hash and submit telemetry to validators as "Proof of Audience"
 
 ---
 
-## Strategic Reasoning Requirements
+## 2. Expected Input → Output Format
 
-Miners must submit a **reasoning trace** alongside each placement proof. This demonstrates research quality, not just execution.
+### 2.1 Input (From Validators)
+
+| Field | Description |
+|-------|-------------|
+| `Brief` | Campaign parameters (target audience, content, conversion goals) |
+| `Target_Account_List` | Optional list of specific companies to target |
+| `Conversion_Targets` | Desired actions (API signups, demos, downloads, follows) |
+
+### 2.2 Output (To Validators)
+
+| Field | Description |
+|-------|-------------|
+| `Placement_Proof` | URL proving where content was shared |
+| `Telemetry_Bundle` | Hashed visitor firmographic data |
+| `Reasoning_Trace` | JSON documenting research and targeting rationale |
+| `Claimed_Tier` | Tier being claimed for this placement (1, 2, or 3) |
+
+### 2.3 Reasoning Trace Format
 
 ```json
 {
   "placement_proof": "https://news.ycombinator.com/item?id=...",
   "telemetry_bundle": "hash:0x7a3f...",
   "reasoning": {
-    "audience_identification": "VoiceFlow identified as Replicate user via GitHub repo imports",
-    "relevance_match": "Asset addresses cold start latency; CTO tweet mentions this exact challenge",
-    "timing_rationale": "Active HN thread on inference costs; high visibility window",
-    "channel_selection": "Technical audience, high-authority context, CTO known to be active"
+    "signal_source": "explicit_need | pain_expression | technographic",
+    "signal_evidence": "URL or data source",
+    "audience_identification": "Company identified as [X] user via [source]",
+    "relevance_match": "Asset addresses [specific pain point]",
+    "timing_rationale": "Active thread on [topic], high visibility window",
+    "channel_selection": "Technical audience, [platform], [reason]"
   }
 }
 ```
 
-### Reasoning Dimensions (Validator-Scored)
+---
 
-| Dimension | Weight | What Validators Check |
-|-----------|--------|----------------------|
-| Audience identification | 25% | Is the target verified as a competitor user? Evidence quality? |
-| Relevance match | 25% | Does the asset address a real need for this audience? |
-| Timing rationale | 25% | Is this a good moment to reach them? |
-| Channel selection | 25% | Is the placement context appropriate and high-quality? |
+## 3. Performance Dimensions
 
-Strong reasoning earns up to **20% bonus** on the placement score.
+### 3.1 Targeting Accuracy
 
-### Gaming Detection
+Measured by whether traffic came from the intended audience tier.
 
-Weak reasoning signals attempted gaming:
+| Tier | Description | Multiplier |
+|------|-------------|------------|
+| Tier 1 | Verified competitor users | 10x |
+| Tier 2 | High-fit industry targets | 3x |
+| Tier 3 | General relevant audience | 1x |
 
-| Red Flag | Interpretation |
-|----------|----------------|
-| Generic reasoning copied across placements | Template-based, not researched |
-| Reasoning doesn't match observable evidence | Fabricated justification |
-| Timing rationale contradicts public data | Made up opportunity |
-| Target not verifiable as competitor user | False audience claim |
+### 3.2 Conversion Depth
 
-Miners with consistently weak reasoning receive score penalties and eventual stake slashing.
+Measured by ability to move users down the funnel.
+
+| Conversion Type | Multiplier |
+|----------------|------------|
+| API Signup | 10x |
+| Demo Request | 5x |
+| Whitepaper Download | 2x |
+| Social Follow | 2x |
+| Engagement | 1x |
+
+### 3.3 Reasoning Quality
+
+Validators evaluate the coherence and verifiability of the miner's reasoning trace.
+
+- Strong reasoning = 0-20% bonus
+- Weak reasoning = penalty
+
+### 3.4 Response Speed
+
+Latency between identifying an audience opportunity and placing content.
+
+### 3.5 Contextual Integrity
+
+Sentiment analysis and platform feedback ensure placements are professional and brand-safe.
+
+- High "Spam" reports → score degradation
+- Low-quality environments → placement invalidation
 
 ---
 
-## Channel Development
+## 4. Entry Requirements
 
-High-value professional communities are where the right audiences gather:
+### 4.1 Stake
 
-* Industry Slack workspaces
-* Private Discord servers
-* Specialized forums
-* Professional networking groups
+- **0.2 TAO** stake required for all miners
+- No conversion threshold — anyone can participate
 
-Miners who develop and maintain presence in these channels demonstrate ongoing effort that cannot be automated. This is **Level 1** of the Intelligence Hierarchy and forms the foundation for higher-tier rewards.
+### 4.2 Sandbox Mode
 
----
-
-## Discovery Bounties
-
-Miners earn **Discovery Bounties** for mapping previously unknown audience segments:
-
-* Identifying which companies use which competitor tools
-* Detecting when a company starts evaluating alternatives
-* Finding channels where specific audiences gather
-
-These discoveries are submitted with evidence and verified by validators before becoming available to the network. This is pure research work—no amount of compute can substitute for accurate audience mapping.
+- New miners practice on test briefs with validator-controlled scenarios
+- No stake required in sandbox
+- Builds "practice reputation" before real participation
 
 ---
 
-## Expected Input → Output Format
+## 5. Discovery Bounties
 
-To maintain interoperability within the Bittensor ecosystem, miners must adhere to a strict I/O protocol.
+10% of the emission pool is allocated for discovery bounties each cycle.
 
-### Input (From Subnet 93 / Validators)
+### 5.1 Discovery Activities
 
-* `Asset_UID`: The unique identifier of the content on SN93.
-* `Target_Account_List (TAL)`: A JSON array of corporate domains whose users would benefit from the content (e.g., `["replicate.com", "runway.com"]`).
-* `Conversion_Targets`: Metadata specifying desired actions (e.g., X.com Follows, API Signups, Discord Joins).
+| Activity | Requirements |
+|----------|-------------|
+| Identify a new verified competitor user | Company name, domain, competitor used, source URL |
+| Find a target company's decision-maker contact | Name, role, LinkedIn/email, company verification |
+| Discover a new channel where targets gather | Platform, community URL, member count, relevance |
+| First to identify emerging competitor | New competitor, evidence of product/market fit |
 
-### Output (To Validators)
+### 5.2 Distribution
 
-* `Placement_Proof`: A URL or Social Object ID proving where the asset was shared.
-* `Telemetry_Bundle`: A hashed packet containing visitor firmographic data and the specific action triggered.
-* `Reasoning_Trace`: JSON object documenting audience identification, relevance match, timing rationale, and channel selection.
-* `Signal_Identity`: A ZK-proof verifying the humanity and professional context of the interaction.
-
----
-
-## Performance Dimensions
-
-Miners are scored on a multi-dimensional matrix where **Targeting Accuracy** outweighs raw volume.
-
-### Conversion Depth (The "Quality" Score)
-
-Measured by the miner's ability to move a user down the funnel. An "API Signup" (Bottom-of-funnel) generates significantly higher rewards than a "Like" (Top-of-funnel).
-
-### Targeting Precision (The "Accuracy" Score)
-
-Success is measured by whether the traffic came from the intended audience. Verified competitor users trigger the "Precision Multiplier."
-
-### Response Speed (The "Bounty" Score)
-
-The latency between identifying an audience opportunity and placing content in front of them.
-
-### Reasoning Quality (The "Intelligence" Score)
-
-Validators evaluate the coherence and verifiability of the miner's reasoning trace. Strong reasoning = bonus multiplier. Weak reasoning = penalty.
-
-### Contextual Integrity (The "Reputation" Score)
-
-Validators use sentiment analysis and platform feedback to ensure the miner's placement is professional and brand-safe. High "Spam" reports or low-quality environments result in score degradation and potential slashing.
+- Claims are weighted proportionally within the 10% pool
+- If pool is unclaimed, it rolls back into the main pool proportionally
 
 ---
 
-## The Intelligence Hierarchy
+## 6. The Intelligence Hierarchy
 
-Miners are rewarded based on the sophistication of their audience research:
+Miners are rewarded based on research sophistication.
 
-| Level | Capability | Reward Tier |
-|-------|------------|-------------|
-| **Level 1** | Channel Access — presence in communities where audiences gather | Base |
-| **Level 2** | Strategic Matching — connecting assets to verified audiences with reasoning | 2x |
-| **Level 3** | Signal Detection — identifying audience needs from noisy data | 5x |
-| **Level 4** | Audience Prediction — anticipating who's ready for alternatives before signals appear | 10x |
+| Level | Capability | Reward |
+|-------|------------|--------|
+| Level 1 | Channel Access — presence in communities where audiences gather | Base |
+| Level 2 | Strategic Matching — connecting assets to verified audiences | +20% |
+| Level 3 | Signal Detection — identifying needs from noisy data | +50% |
+| Level 4 | Audience Prediction — anticipating readiness before signals | +100% |# SignalCast: Miner Design
 
 ---
+
+## 1. Miner Tasks
+
+### 1.1 Asset Scouting
+
+- Monitor Subnet 93 (Bitcast) for high-performing creative assets
+- Use LLMs to analyze asset transcripts and metadata for "Audience Fit" to specific briefs
+
+### 1.2 Audience Research
+
+- Research the open web to identify which companies use which tools
+  - Sources: BuiltWith, Clearbit, GitHub repos, job postings, public case studies
+- Identify specific channels where target audiences gather
+  - Channels: Specialized forums, Discord servers, industry newsletters, X.com threads
+
+### 1.3 Precision Placement
+
+- Generate unique tracking signature for each placement
+- Place content where the right audience will see it
+- Drive users toward "Lead Magnets": Whitepapers, Demos, API Signups
+
+### 1.4 Telemetry Maintenance
+
+- Host lightweight redirect proxy capturing initial visitor telemetry (IP, User-Agent)
+- Hash and submit telemetry to validators as "Proof of Audience"
+
+---
+
+## 2. Expected Input → Output Format
+
+### 2.1 Input (From Validators)
+
+| Field | Description |
+|-------|-------------|
+| `Brief` | Campaign parameters (target audience, content, conversion goals) |
+| `Target_Account_List` | Optional list of specific companies to target |
+| `Conversion_Targets` | Desired actions (API signups, demos, downloads, follows) |
+
+### 2.2 Output (To Validators)
+
+| Field | Description |
+|-------|-------------|
+| `Placement_Proof` | URL proving where content was shared |
+| `Telemetry_Bundle` | Hashed visitor firmographic data |
+| `Reasoning_Trace` | JSON documenting research and targeting rationale |
+| `Claimed_Tier` | Tier being claimed for this placement (1, 2, or 3) |
+
+### 2.3 Reasoning Trace Format
+
+```json
+{
+  "placement_proof": "https://news.ycombinator.com/item?id=...",
+  "telemetry_bundle": "hash:0x7a3f...",
+  "reasoning": {
+    "signal_source": "explicit_need | pain_expression | technographic",
+    "signal_evidence": "URL or data source",
+    "audience_identification": "Company identified as [X] user via [source]",
+    "relevance_match": "Asset addresses [specific pain point]",
+    "timing_rationale": "Active thread on [topic], high visibility window",
+    "channel_selection": "Technical audience, [platform], [reason]"
+  }
+}
+```
+
+---
+
+## 3. Performance Dimensions
+
+### 3.1 Targeting Accuracy
+
+Measured by whether traffic came from the intended audience tier.
+
+| Tier | Description | Multiplier |
+|------|-------------|------------|
+| Tier 1 | Verified competitor users | 10x |
+| Tier 2 | High-fit industry targets | 3x |
+| Tier 3 | General relevant audience | 1x |
+
+### 3.2 Conversion Depth
+
+Measured by ability to move users down the funnel.
+
+| Conversion Type | Multiplier |
+|----------------|------------|
+| API Signup | 10x |
+| Demo Request | 5x |
+| Whitepaper Download | 2x |
+| Social Follow | 2x |
+| Engagement | 1x |
+
+### 3.3 Reasoning Quality
+
+Validators evaluate the coherence and verifiability of the miner's reasoning trace.
+
+- Strong reasoning = 0-20% bonus
+- Weak reasoning = penalty
+
+### 3.4 Response Speed
+
+Latency between identifying an audience opportunity and placing content.
+
+### 3.5 Contextual Integrity
+
+Sentiment analysis and platform feedback ensure placements are professional and brand-safe.
+
+- High "Spam" reports → score degradation
+- Low-quality environments → placement invalidation
+
+---
+
+## 4. Entry Requirements
+
+### 4.1 Stake
+
+- **0.2 TAO** stake required for all miners
+- No conversion threshold — anyone can participate
+
+### 4.2 Sandbox Mode
+
+- New miners practice on test briefs with validator-controlled scenarios
+- No stake required in sandbox
+- Builds "practice reputation" before real participation
+
+---
+
+## 5. Discovery Bounties
+
+10% of the emission pool is allocated for discovery bounties each cycle.
+
+### 5.1 Discovery Activities
+
+| Activity | Requirements |
+|----------|-------------|
+| Identify a new verified competitor user | Company name, domain, competitor used, source URL |
+| Find a target company's decision-maker contact | Name, role, LinkedIn/email, company verification |
+| Discover a new channel where targets gather | Platform, community URL, member count, relevance |
+| First to identify emerging competitor | New competitor, evidence of product/market fit |
+
+### 5.2 Distribution
+
+- Claims are weighted proportionally within the 10% pool
+- If pool is unclaimed, it rolls back into the main pool proportionally
+
+---
+
+## 6. The Intelligence Hierarchy
+
+Miners are rewarded based on research sophistication.
+
+| Level | Capability | Reward |
+|-------|------------|--------|
+| Level 1 | Channel Access — presence in communities where audiences gather | Base |
+| Level 2 | Strategic Matching — connecting assets to verified audiences | +20% |
+| Level 3 | Signal Detection — identifying needs from noisy data | +50% |
+| Level 4 | Audience Prediction — anticipating readiness before signals | +100% |
