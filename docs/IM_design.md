@@ -1,176 +1,257 @@
 # SignalCast: Incentive & Mechanism Design
 
-SignalCast is an intelligent distribution layer that bridges the gap between AI content creation (**Subnet 93 / Bitcast**) and real-world industrial impact. The mechanism is designed to transform anonymous social media reach into verified corporate interest by placing content in front of the **right eyeballs** — decision-makers who already use competitor products and are most likely to benefit from alternatives.
+---
+
+## 1. Executive Summary
+
+SignalCast is a decentralized Audience Research & Precision Distribution Layer built on Bittensor. It connects AI-generated content (primarily from Subnet 93 / Bitcast) with verified decision-makers who would genuinely benefit from the advertised solution — transforming anonymous reach into verified corporate interest.
+
+The mechanism rewards **precision over volume**, **intelligence over automation**, and **long-term relationship building over single-touch conversions**.
 
 ---
 
-## Worked Example: The Interest Pipeline in Action
+## 2. Emission and Reward Logic
 
-### Scenario: Subnet 64 (Chutes) vs. Replicate
+Emissions follow a **Precision Targeting** model that prioritizes reaching the right audience over raw reach.
 
-**Advertiser:** Chutes.ai (Bittensor SN64 — serverless AI inference)
-**Target Audience:** Developers currently using Replicate who may benefit from lower latency and pricing
-**Asset:** SN93-generated explainer video: "How Devs Cut Inference Costs 60% with Chutes"
+### 2.1 Audience Tier Multipliers
 
-**Stage 1 — Task Ingest:** Validator broadcasts brief with Target Account List (known Replicate users from BuiltWith/GitHub integrations) and conversion targets (API signups, docs visits, Discord joins).
+| Tier | Audience | Multiplier |
+|------|----------|------------|
+| Tier 1 | Verified competitor users (self-reported need or first-party list match) | 10x |
+| Tier 2 | High-fit industry targets (technographic match, not confirmed competitor) | 3x |
+| Tier 3 | General relevant audience (niche community members) | 1x |
+| Tier 4 | Low-confidence / residential / inferred only | 0.1x |
 
-**Stage 2 — Miner Research:** Miner 0x7A3F identifies a YC-backed startup "VoiceFlow AI" as a Replicate user via their public GitHub repo. Notices a tweet from their CTO discussing cold start latency challenges. Locates an active Hacker News thread about inference costs.
+### 2.2 Conversion Depth Multipliers
 
-**Stage 3 — Precision Placement:** Miner replies in HN thread with tracked link: "Saw a comparison showing Chutes handles cold starts differently. Runs on Bittensor infra. [link]"
+| Conversion Type | Multiplier |
+|----------------|------------|
+| API signup / Demo request | 10x |
+| Whitepaper download | 5x |
+| Social follow | 3x |
+| Engagement (like/repost) | 1x |
 
-**Stage 4 — Conversion:** VoiceFlow CTO clicks from office IP, watches explainer (3:45), visits Chutes docs, signs up for API access with work email (alex@voiceflow.ai), joins Discord.
+### 2.3 Final Score Calculation
 
-**Stage 5 — Validation:** Validator confirms:
-- Reverse IP → VoiceFlow AI Inc.
-- VoiceFlow on Target Account List (Replicate user) → **10x Precision Multiplier**
-- API signup → **10x Conversion Weight**
-- Human behavior verified via Honey-Link
-- Reasoning trace quality: strong → **+5% bonus**
+```
+Final Score = Base Score × Audience Tier × Conversion Depth × Reasoning Bonus
+```
 
-**Final Score:** 1.0 × 10 × 10 × 1.05 = **105 points** (vs 0.1 for random residential click)
-
-**Stage 6 — Reward:** Miner receives ~6 TAO. Chutes pays ~2 TAO success fee on verified conversion.
-
-**Outcome:** Content reached someone who actually needed it. Developer discovered a solution to their problem. Bittensor ecosystem grows.
+- **Base Score:** 1.0 per placement submission
+- **Reasoning Bonus:** 0-20% based on validator-scored reasoning quality
 
 ---
 
-## Emission and Reward Logic
+## 3. First-Party Targeting
 
-The SignalCast emission schedule follows a **Precision Targeting** model that prioritizes reaching the right audience over raw reach. Emissions are weighted based on the **Relevance** of the audience and the **Depth** of their conversion.
+Advertisers can provide their own target lists, eliminating miner guesswork.
 
-* **Tier 1: Verified Relevant Audience (50%):** The highest priority emission tier. A **10x multiplier** is applied to verified engagement from users of competing products — people most likely to benefit from the advertised solution.
-* **Tier 2: High-Fit Industry Targets (30%):** A **3x multiplier** is applied to engagement from companies within the same vertical that fit the Ideal Customer Profile (ICP) but are not yet confirmed as competitor users.
-* **Tier 3: Standard Performance & Discovery (20%):** Base rewards for organic conversion across general niche audiences.
-* **Discovery Bounties:** A dynamic pool of emissions is reserved for miners who identify new pockets of relevant audiences — mapping which companies use which tools enables better content targeting.
+### 3.1 Advertiser Options
 
-------
+| Input Type | Description | Reward Weight |
+|------------|-------------|---------------|
+| **Exact Account List** | Specific companies to target | Highest (automatic Tier 1 if converted) |
+| **ICP Description** | "Companies using X, Y, Z in industry A, size B" | Miner researches and verifies |
+| **Discovery-Only** | No list provided — miner finds targets | Standard tiered rewards |
+| **Hybrid** | Seed list + miner discovery | Tier 1 for list matches, standard for discovered |
 
-## Journey-Weighted Scoring
+### 3.2 Signal Taxonomy
 
-Single conversions are valuable, but sustained engagement over time is more valuable. SignalCast rewards miners who nurture accounts through the full buyer journey.
+When miners don't have a first-party list, they earn based on signal quality:
 
-### Time-Weighted Multipliers
+| Signal Type | Example | Weight |
+|-------------|---------|--------|
+| Explicit need | "Looking for [competitor] alternatives" | 10x |
+| Pain expression | "[Competitor] latency is killing us" | 8x |
+| Feature request | "Wish [competitor] had..." | 5x |
+| Job postings | Hiring ML infra at scale | 3x |
+| Technographic data | BuiltWith, Clearbit, GitHub imports | 1x |
+
+Miners must submit the **source** of their targeting signal. Validators verify it exists.
+
+---
+
+## 4. Journey-Weighted Scoring
+
+Multi-touch sequences are rewarded to prevent "swoop and grab" behavior.
+
+### 4.1 Time-Weighted Multipliers
 
 | Journey Length | Multiplier | Rationale |
 |----------------|------------|-----------|
 | Single touchpoint | 1x | Base conversion value |
 | 2-3 touchpoints over 14 days | 1.5x | Demonstrated follow-through |
 | 4+ touchpoints over 30 days | 2x | Full nurture sequence |
-| Multi-stakeholder engagement (same company) | 3x | Account penetration |
+| Multi-stakeholder engagement | 3x | Account penetration |
 
-### Journey Attribution
+### 4.2 Attribution Model (40/40/20)
 
-When multiple miners touch the same account, rewards are distributed based on contribution:
+| Touch | Reward Share |
+|-------|---------------|
+| First touch (awareness) | 40% |
+| Last touch (conversion) | 40% |
+| Highest-engagement touch | 20% |
 
-* **First touch (awareness):** 20% of final conversion value
-* **Middle touches (consideration):** 10% each, capped at 30% total
-* **Last touch (conversion):** 50% of final conversion value
-
-This prevents "swoop and grab" tactics where miners wait for accounts already in-market and claim full credit for a single touchpoint.
-
-### Example
-
-1. Miner A places content in HN thread. VoiceFlow CTO clicks, reads, leaves.
-2. Two weeks later, Miner B places related content in industry newsletter. Same CTO clicks, downloads whitepaper.
-3. One week later, Miner A places demo video in LinkedIn. CTO books demo.
-
-**Attribution:** Miner A: 20% + 50% = 70%. Miner B: 30%. Both rewarded proportionally.
+- Touches expire after 30 days if no conversion
+- One miner = one touch per account per campaign (no spam)
+- Real-time leaderboard shows active touches and attributed value
 
 ---
 
-## Incentive Alignment for Miners and Validators
+## 5. Validator Incentive Structure
 
-The mechanism ensures that all participants profit only when content reaches people who genuinely benefit from seeing it.
+Validators earn dividends by verifying that content reached the intended audience and scoring miner reasoning quality.
 
-* **Miners (Audience Researchers):** Miners are incentivized to perform **Audience Discovery**. Because rewards are weighted heavily toward reaching verified competitor users, miners must research which companies use which tools and identify channels where those decision-makers gather.
-* **Validators (Verification Oracles):** Validators act as the arbiters of **Audience Accuracy**. Their dividends depend on their ability to accurately verify that content reached the intended audience. By cross-referencing visitor telemetry with technographic registries and the SN93 conversion loop, they ensure emissions are backed by genuine relevance.
-* **The Cross-Subnet Synergy:** By utilizing the SN93 (Bitcast) output, SignalCast creates a feedback loop where high-quality AI creative assets are directed at the audiences most likely to benefit from them.
-
----
-
-## Mechanisms to Discourage Low-Quality or Adversarial Behavior
-
-SignalCast maintains a "Zero-Trust" environment through **Economic Deterrence** and **Audience Filtering**.
-
-* **Stake-at-Risk (Slashing):** Miners must stake Alpha/TAO to participate in premium briefs. If a miner's traffic is flagged as fraudulent or irrelevant to the target audience, their stake is burned.
-* **Honey-Link Telemetry:** Validators "wrap" distributed links in invisible telemetry layers. If a click occurs without human-like behavioral variance (e.g., linear scroll velocity or lack of cursor jitter), it is disqualified from the Tier 1 payout.
-* **Saturation Throttling:** To protect an advertiser's brand reputation, validators apply frequency caps. If a miner over-exposes a target account, their rewards for that account are zeroed out.
+- Validators operate under **Yuma Consensus** (Bittensor's standard validator mechanism)
+- Rewards scale with verification accuracy and consistency
 
 ---
 
-## Proof of Intelligence Framework
+## 6. Miner Cold Start
 
-SignalCast qualifies as a **Proof of Intelligence** subnet by requiring complex, non-algorithmic audience research that cannot be solved by brute-force hardware.
+New miners need pathways to earn before building a conversion track record.
 
-### Why This Qualifies as Proof of Intelligence
+### 6.1 Discovery Bounties
 
-| Requirement | SignalCast Implementation |
-|-------------|---------------------------|
-| **Non-trivial task** | Audience research requires investigation, reasoning, and judgment |
-| **Verifiable output** | Reasoning traces can be checked against evidence |
-| **Resistance to gaming** | Fabricated reasoning fails consistency checks; volume without quality is penalized |
-| **Economic alignment** | Rewards scale with targeting accuracy, not just placement volume |
-| **Skill differentiation** | Miners with better research capabilities consistently outperform |
+Separate pool for identifying targets (not just converting):
 
-### Strategic Reasoning Submission
+| Activity | Reward |
+|----------|--------|
+| Identify a new verified competitor user | 0.1 TAO |
+| Find a target company's decision-maker contact | 0.2 TAO |
+| Discover a new channel where targets gather | 0.5 TAO |
+| First to identify emerging competitor (bonus) | 1.0 TAO |
 
-Miners must submit a **reasoning trace** alongside each placement proof:
+### 6.2 Tiered Brief Access
+
+| Tier | Conversions | Access | Staking Required |
+|------|-------------|--------|------------------|
+| Bronze | 0-9 | Learning briefs (practice) | 100 TAO |
+| Silver | 10-49 | Premium briefs | 500 TAO |
+| Gold | 50-199 | VIP campaigns | 2,000 TAO |
+| Platinum | 200+ | Private auctions | 10,000 TAO |
+
+### 6.3 Mentorship Program
+
+- Experienced miners can mentor new participants
+- Mentor receives 5% of mentee's earnings for 30 days
+- Mentee gets accelerated reputation during probation
+
+### 6.4 Sandbox Mode
+
+- New miners practice on test briefs with validator-controlled fake accounts
+- "Practice reputation" converts to real stake after 30 days
+
+---
+
+## 7. Proof of Intelligence Framework
+
+SignalCast qualifies as a Proof of Intelligence subnet by requiring complex, non-algorithmic research.
+
+### 7.1 Why This Qualifies
+
+| Requirement | Implementation |
+|-------------|----------------|
+| Non-trivial task | Audience research requires investigation, reasoning, judgment |
+| Verifiable output | Reasoning traces can be checked against evidence |
+| Resistance to gaming | Fabricated reasoning fails consistency checks |
+| Economic alignment | Rewards scale with targeting accuracy, not volume |
+| Skill differentiation | Miners with better research consistently outperform |
+
+### 7.2 Intelligence Hierarchy
+
+| Level | Description | Reward |
+|-------|-------------|--------|
+| Level 1 | Channel access — presence in professional communities | Base |
+| Level 2 | Strategic matching — asset to verified audience with reasoning | +20% |
+| Level 3 | Signal detection — identify needs from noisy data | +50% |
+| Level 4 | Audience prediction — anticipate readiness before explicit signals | +100% |
+
+### 7.3 Reasoning Trace Format
+
+Miners submit structured reasoning with each placement:
 
 ```json
 {
   "placement_proof": "https://news.ycombinator.com/item?id=...",
   "telemetry_bundle": "hash:0x7a3f...",
   "reasoning": {
-    "audience_identification": "VoiceFlow identified as Replicate user via GitHub repo imports",
-    "relevance_match": "Asset addresses cold start latency; CTO tweet mentions this exact challenge",
-    "timing_rationale": "Active HN thread on inference costs; high visibility window",
-    "channel_selection": "Technical audience, high-authority context, CTO known to be active"
+    "signal_source": "explicit_need | pain_expression | technographic",
+    "signal_evidence": "URL or data source",
+    "audience_identification": "Company identified as [X] user via [source]",
+    "relevance_match": "Asset addresses [specific pain point]",
+    "timing_rationale": "Active thread on [topic], high visibility",
+    "channel_selection": "Technical audience, [platform], [reason]"
   }
 }
 ```
 
-Validators score reasoning quality across four dimensions (audience identification, relevance match, timing rationale, channel selection), with strong reasoning earning up to 20% bonus multiplier.
+### 7.4 Reasoning Quality Scoring
 
-### The Intelligence Hierarchy
+Validators score each submission on 4 dimensions (0-5 scale each):
 
-SignalCast rewards intelligence at multiple levels:
+| Dimension | What It Measures |
+|-----------|------------------|
+| Signal Source Quality | How credible is the targeting signal? |
+| Audience Identification | Is the company correctly identified as a target? |
+| Relevance Match | Does the content actually address the identified need? |
+| Channel Selection | Is this the right platform/context for this audience? |
 
-1. **Level 1 — Channel Access:** Developing presence in professional communities where target audiences gather
-2. **Level 2 — Strategic Matching:** Connecting assets to verified audiences with coherent reasoning
-3. **Level 3 — Signal Detection:** Identifying audience needs and pain points from noisy data
-4. **Level 4 — Audience Prediction:** Anticipating which users are ready for alternatives before explicit signals appear (highest reward)
+- Each dimension: 0-5 score
+- Total: 0-20 points → 0-20% bonus applied to final score
 
----
-
-## Content Source Flexibility
-
-While Subnet 93 (Bitcast) is SignalCast's primary integration partner, the architecture is **content-source agnostic**.
-
-### Supported Asset Types
-
-| Source | Asset Type | Integration Status |
-|--------|------------|-------------------|
-| **SN93 (Bitcast)** | AI-generated video | Primary (native) |
-| **Advertiser-provided** | Whitepapers, case studies, landing pages | Supported |
-| **Other Bittensor subnets** | SN17 (3D), SN59 (audio), future content subnets | Planned |
-| **External CDNs** | Any URL-addressable content | Supported |
-
-SignalCast is **SN93-compatible, not SN93-dependent**. The subnet's core innovation—precision B2B distribution to the right audience—is valuable for any content.
+| Total Score | Reasoning Bonus |
+|-------------|------------------|
+| 0-4 | 0% |
+| 5-8 | 5% |
+| 9-12 | 10% |
+| 13-16 | 15% |
+| 17-20 | 20% |
 
 ---
 
-## High-Level Algorithm: The Interest Pipeline
+## 8. Anti-Gaming Mechanisms
 
-SignalCast miners bridge the gap between content and the right audience. Potential customers discover "Lead Magnets" (Whitepapers, Demos, APIs) through the following loop:
+### 8.1 Stake-at-Risk
 
-1. **Task Ingest & Discovery:** Validators pull active SN93 assets, Target Account Lists (TAL), and Lead Magnets. Miners place these assets in front of relevant audiences on X.com and industry-specific hubs.
-2. **Engagement (Interest Signal):** Relevant targets interact with the asset (Likes, Follows, Reposts). Validators verify these via social APIs, triggering Tier 2/3 rewards.
-3. **Conversion (Action):** Users follow the SignalCast-tracked link to the advertiser's landing page and perform high-value actions:
-   * **Resource Ingest:** Downloading technical Whitepapers or Case Studies.
-   * **Product Evaluation:** Signing up for Demos or API access.
-   * **Direct Inquiry:** Submitting Contact Forms.
-4. **Validation (The Audit):** Validators cross-reference these events with technographic data to verify the lead's **Audience Relevance** and issue Tier 1 rewards.
-5. **Scoring & Allocation:** Validators calculate the final score based on the **Precision Multiplier** and **Conversion Depth**. Yuma Consensus processes these weights to allocate block rewards.
+- Miners stake TAO to participate in premium briefs
+- Fraudulent or irrelevant traffic → stake burned
+
+### 8.2 Honey-Link Telemetry
+
+- Validators wrap links in invisible telemetry
+- Non-human behavior (linear scroll, no cursor variance) → disqualification
+
+### 8.3 Frequency Caps
+
+- Validators apply saturation limits per account
+- Over-exposed accounts → rewards zeroed for that account
+
+### 8.4 Reasoning Consistency Checks
+
+- Fabricated reasoning fails cross-reference validation
+- Pattern of low-quality reasoning → reputation penalty
 
 ---
+
+## 9. Content Source Flexibility
+
+SignalCast is content-source agnostic.
+
+| Source | Asset Type | Status |
+|--------|------------|--------|
+| SN93 (Bitcast) | AI-generated video | Primary |
+| Advertiser-provided | Whitepapers, landing pages | Supported |
+| Other Bittensor subnets | SN17 (3D), SN59 (audio), future | Extensible |
+
+---
+
+## 10. Emission Summary
+
+| Pool | Allocation |
+|------|------------|
+| Verified conversions (Tier 1) | 50% |
+| High-fit targets (Tier 2) | 30% |
+| Discovery & general (Tier 3) | 15% |
+| Discovery bounties (new targets) | 5% |
