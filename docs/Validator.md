@@ -14,13 +14,12 @@
 
 - Validate miner-claimed tier against evidence
 - Confirm tier upgrades or downgrades as needed
-- Handle miner appeals with additional evidence review
 
 ### 1.3 Conversion Verification
 
 - Confirm conversion depth achieved (API signup, demo, download, follow, engagement)
-- Verify conversion came from miner's placed content
-- Detect and reject fraudulent conversions
+- miner's placed content
+- Detect and Verify conversion came from reject fraudulent conversions
 
 ### 1.4 Anti-Gaming Enforcement
 
@@ -63,8 +62,10 @@
 | Engagement | 0.5x | Click/time on page |
 
 ### 2.3 Score Calculation
-Score = Base (1.0) × Tier Multiplier × Conversion Multiplier
 
+```
+Score = Base (1.0) × Tier Multiplier × Conversion Multiplier
+```
 
 ---
 
@@ -81,9 +82,8 @@ Score = Base (1.0) × Tier Multiplier × Conversion Multiplier
 ### 3.2 Cycle Aggregation
 
 1. All miner scores aggregated for the cycle
-2. Discovery bounty claims collected
-3. Proportional distribution calculated
-4. Rewards allocated (80% miners, 20% validators)
+2. Proportional distribution calculated
+3. Rewards allocated (80% miners, 20% validators)
 
 ### 3.3 Ongoing Monitoring
 
@@ -110,12 +110,6 @@ Validators operate under **Bittensor's standard Yuma Consensus**:
 - Rewards scale with stake weight in subnet
 - Verification work is part of the standard validator role
 - Economic incentive to verify correctly
-
-### 4.3 Multi-Validator Verification
-
-- Tier claims require consensus from multiple validators
-- Challenge period: anyone can dispute a tier claim with better evidence
-- Validator who originally approved bears reputation cost if overturned
 
 ---
 
@@ -165,3 +159,4 @@ Validators operate under **Bittensor's standard Yuma Consensus**:
 | `Conversion_Depth` | Confirmed conversion type |
 | `Final_Score` | Calculated score |
 | `Validation_Status` | Approved / Downgraded / Disqualified |
+```
