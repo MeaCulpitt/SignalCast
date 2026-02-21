@@ -14,7 +14,7 @@
 
 ### 1.2 Early Adopters
 
-| Segment | Why They'lL Join | Initial Focus |
+| Segment | Why They'll Join | Initial Focus |
 |---------|-------------------|---------------|
 | **Bittensor subnets** | Native ecosystem, easy integration | SN93 (Bitcast), other content subnets |
 | **B2B SaaS startups** | Lower CAC, verified results | AI/ML infrastructure, dev tools |
@@ -76,7 +76,7 @@ Target 5-10 companies for closed pilot:
 
 | Incentive | Description |
 |-----------|-------------|
-| **Verification rewards** | Dividends for accurate verification |
+| **20% of emission pool** | Validators receive 20% of total emissions |
 | **Early mover advantage** | Build stake and reputation early |
 | **Yuma Consensus** | Standard Bittensor mechanism |
 
@@ -162,12 +162,13 @@ Target 5-10 companies for closed pilot:
 | Risk | Mitigation |
 |------|------------|
 | Low miner participation | Discovery bounties, low stake requirement |
-| Fake traffic/gaming | Honey-link telemetry, reasoning verification |
+| Fake traffic/gaming | Honey-link telemetry, multi-validator verification |
 | Advertiser churn | Verified ROI, success-based pricing |
 | Competition | Cross-subnet integration, unique mechanism |
 
 ### 6.2 Contingencies
 
 - If Tier 1 conversions low → increase discovery bounties
-- If miner quality low → strengthen reasoning requirements
+- If miner quality low → strengthen verification requirements
 - If advertiser interest low → expand use cases, improve messaging
+```
