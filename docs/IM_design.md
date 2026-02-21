@@ -144,12 +144,6 @@ When multiple miners target the same account:
 - Validators apply saturation limits per account
 - Over-exposing a target → rewards zeroed for that account
 
-### Multi-Validator Verification
-
-- Tier claims require consensus from multiple validators
-- Challenge period: anyone can dispute a tier claim with better evidence
-- Validator who originally approved bears reputation cost if overturned
-
 ### Gaming Detection
 
 | Red Flag | Interpretation |
