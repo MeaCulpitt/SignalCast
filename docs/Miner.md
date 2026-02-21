@@ -65,9 +65,9 @@ Measured by whether traffic came from the intended audience tier.
 
 Measured by ability to move users down the funnel.
 
-| Conversion Type | Multiplier |
-|----------------|------------|
-| API Signup | 10x |
+| Conversion Type | Multiplier------------|
+| API |
+|----------------| Signup | 10x |
 | Demo Request | 5x |
 | Whitepaper Download | 2x |
 | Social Follow | 1x |
@@ -96,24 +96,4 @@ Sentiment analysis and platform feedback ensure placements are professional and 
 ### 4.2 Data Access
 
 Miners are responsible for obtaining their own data access for verification. Free sources (GitHub, LinkedIn) are acceptable alternatives to paid APIs (BuiltWith, Clearbit).
-
----
-
-## 5. Discovery Bounties
-
-10% of the emission pool is allocated for discovery bounties each cycle.
-
-### 5.1 Discovery Activities
-
-| Activity | Requirements |
-|----------|-------------|
-| Identify a new verified competitor user | Company name, domain, competitor used, source URL |
-| Find a target company's decision-maker contact | Name, role, LinkedIn/email, company verification |
-| Discover a new channel where targets gather | Platform, community URL, member count, relevance |
-| First to identify emerging competitor | New competitor, evidence of product/market fit |
-
-### 5.2 Distribution
-
-- Claims are weighted proportionally within the 10% pool
-- If pool is unclaimed, it rolls back into the main pool proportionally
 ```
