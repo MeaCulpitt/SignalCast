@@ -67,7 +67,6 @@ Target 5-10 companies for closed pilot:
 
 | Incentive | Description |
 |-----------|-------------|
-| **Discovery bounties** | 10% of pool for new target discovery |
 | **High rewards early** | Increased emission rates during bootstrap phase |
 | **Reputation building** | First movers build reputation for future rewards |
 | **Low stake requirement** | Only 0.2 TAO to participate |
@@ -94,7 +93,6 @@ Target 5-10 companies for closed pilot:
 | Strategy | Description |
 |----------|-------------|
 | **Closed pilot** | 5-10 partners, verified data, case studies |
-| **Bounty programs** | Reward community for target discovery |
 | **Referral incentives** | Bonus TAO for bringing advertisers/miners |
 | **Hackathons** | Community building, mechanism refinement |
 
@@ -150,7 +148,6 @@ Target 5-10 companies for closed pilot:
 |--------|-------------|
 | Miner retention | % active after 30/60/90 days |
 | Advertiser LTV | Repeat campaigns per advertiser |
-| Discovery rate | New targets discovered per week |
 | Tier distribution | % Tier 1 vs Tier 2 vs Tier 3 |
 
 ---
@@ -161,14 +158,14 @@ Target 5-10 companies for closed pilot:
 
 | Risk | Mitigation |
 |------|------------|
-| Low miner participation | Discovery bounties, low stake requirement |
-| Fake traffic/gaming | Honey-link telemetry, multi-validator verification |
+| Low miner participation | Low stake requirement (0.2 TAO) |
+| Fake traffic/gaming | Honey-link telemetry, verification requirements |
 | Advertiser churn | Verified ROI, success-based pricing |
 | Competition | Cross-subnet integration, unique mechanism |
 
 ### 6.2 Contingencies
 
-- If Tier 1 conversions low → increase discovery bounties
+- If Tier 1 conversions low → increase emission rewards
 - If miner quality low → strengthen verification requirements
 - If advertiser interest low → expand use cases, improve messaging
 ```
