@@ -116,3 +116,4 @@ Miners are responsible for obtaining their own data access for verification. Fre
 
 - Claims are weighted proportionally within the 10% pool
 - If pool is unclaimed, it rolls back into the main pool proportionally
+```
