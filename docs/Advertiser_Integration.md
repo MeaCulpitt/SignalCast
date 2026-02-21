@@ -34,6 +34,17 @@ Advertisers create a campaign brief defining:
 
 ---
 
+## Emission Distribution
+
+Advertiser success fees are combined with protocol emissions and distributed as follows:
+
+- **80%** to miners (proportional to scores)
+- **20%** to validators
+
+This ensures miners are rewarded for quality placements and validators are incentivized for accurate verification.
+
+---
+
 ## Dashboard
 
 Every advertiser receives access to a real-time dashboard showing:
@@ -125,3 +136,4 @@ Advertisers pay a success fee per verified conversion. No spend required unless 
 3. **Upload content** — Provide assets or use SN93 content
 4. **Set budget** — Cap maximum spend
 5. **Receive leads** — Verified conversions via dashboard or CRM
+```
