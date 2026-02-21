@@ -157,7 +157,6 @@ When multiple miners target the same account:
 1. Miner submits placement with claimed tier
 2. Validator verifies signal source exists
 3. Tier confirmed or downgraded
-4. Miner can appeal with additional evidence
 
 ---
 
@@ -169,7 +168,7 @@ When multiple miners target the same account:
 |-------------|----------------|
 | Non-trivial task | Audience research requires investigation, judgment, and strategic thinking — cannot be computed from data alone |
 | Verifiable output | Evidence traces can be checked against observable sources |
-| Resistance to gaming | Multi-validator consensus, honey-link telemetry, frequency caps |
+| Resistance to gaming | Honey-link telemetry, frequency caps |
 | Economic alignment | Rewards scale with targeting accuracy, not placement volume |
 | Skill differentiation | Miners with better research consistently outperform |
 
@@ -254,3 +253,4 @@ To solve the cold-start loop:
 | Phase 1 | Public miner registration, seed data active |
 | Phase 2 | Open advertiser onboarding |
 | Phase 3 | Full emission schedule, market dynamics take over |
+```
