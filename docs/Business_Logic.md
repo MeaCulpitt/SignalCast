@@ -88,7 +88,6 @@ SignalCast requires complex, non-algorithmic research:
 ### 3.3 Network Effects
 
 - More miners → better audience coverage → more advertisers → higher rewards → more miners
-- Discovery bounties build target database organically
 - Cross-subnet synergy with Bitcast creates ecosystem value
 
 ---
@@ -163,7 +162,6 @@ SignalCast requires complex, non-algorithmic research:
 
 - Earn TAO for meaningful research work
 - Skill-based earning (research quality > volume)
-- Discovery bounty income stream
 
 ### 6.3 For the Ecosystem
 
