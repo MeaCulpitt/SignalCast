@@ -65,10 +65,8 @@ Score = Base (1.0) × Tier Multiplier × Conversion Multiplier
 
 ### Distribution
 
-- **80%** to miners
+- **80%** to miners (proportional to scores)
 - **20%** to validators
-- **90%** of pool: Distributes proportionally based on score weights each cycle
-- **10%** of pool: Discovery bounties (if unclaimed, rolls back into main pool)
 
 **Example:**
 
@@ -98,7 +96,6 @@ All advertiser revenue is swapped to TAO via oracle and flows directly to miners
 Miners earn TAO by:
 - Identifying verified competitor users and placing content
 - Driving deeper conversions (API signups > demos > downloads > follows > engagement)
-- Discovering new targets, channels, and competitors (discovery bounties)
 
 Each conversion maps to one miner — no complex multi-miner attribution.
 
@@ -109,7 +106,6 @@ Validators earn dividends through Bittensor's Yuma Consensus based on their stak
 ### Alignment Mechanisms
 
 - **Proportional distribution:** Rewards directly correlate with targeting quality and conversion depth
-- **Discovery bounties:** Incentivizes research even before conversions occur
 - **Simple one-to-one model:** Each verified conversion maps to one miner
 - **Tiered rewards:** Higher tiers (verified competitor users) earn 10x base — rewards accuracy over volume
 
@@ -225,8 +221,6 @@ This requires genuine effort beyond automated scraping or random placement.
 
 1. 80% of pool distributes to miners proportionally by score
 2. 20% of pool goes to validators
-3. 90% of miner share distributes by score weight
-4. 10% of miner share for discovery bounties (if unclaimed, rolls back to main pool)
 
 ---
 
